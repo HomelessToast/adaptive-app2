@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewBox="0 0 120 40">
+  <g stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Left shape (upward-pointing chevron/A shape) -->
+    <path d="M15 30 L30 10 L45 30"/>
+    <!-- Right shape (V shape) -->
+    <path d="M55 10 L70 30 L85 10"/>
+  </g>
+</svg> 

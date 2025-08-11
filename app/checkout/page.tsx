@@ -1,0 +1,179 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
+type Ingredient = {
+  name: string;
+  amount?: number;
+  unit?: string;
+  subIngredients?: Ingredient[];
+};
+
+export default function CheckoutPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cartItems, setCartItems] = useState<{ingredients: Ingredient[], cost: number}[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    // Load cart items from localStorage
+    const savedCart = localStorage.getItem('adaptiv-cart');
+    if (savedCart) {
+      setCartItems(JSON.parse(savedCart));
+    }
+  }, []);
+
+  const getTotalCost = () => {
+    return cartItems.reduce((total, item) => total + item.cost, 0);
+  };
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const createStripeCheckout = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cartItems }),
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      // Redirect to Stripe Checkout
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+      alert('Failed to create checkout session. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (cartItems.length === 0) {
+    return (
+      <div className="max-w-2xl mx-auto text-center">
+        <h1 className="text-3xl font-bold mb-4">Checkout</h1>
+        <p className="text-gray-600 mb-8">Your cart is empty.</p>
+        <Link 
+          href="/" 
+          className="bg-black text-white px-8 py-4 rounded-full text-lg font-semibold shadow-md hover:bg-blue-700 transition min-h-[44px] inline-block"
+        >
+          Return to Home
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {/* Header */}
+      <header className="flex justify-between items-center px-4 md:px-8 py-6 border-b border-gray-200 mb-5 bg-white">
+        <a href="/" className="hover:opacity-80 transition">
+          <svg className="h-8 md:h-10 w-auto" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="black" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" fill="none">
+              <path d="M10 30 L25 8 L40 30"/>
+              <path d="M45 8 L60 30 L75 8"/>
+            </g>
+          </svg>
+        </a>
+        
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex gap-6 lg:gap-8 text-sm font-medium text-gray-600">
+          <a href="/quiz" className="hover:text-black transition">QUIZ</a>
+          <a href="/start-from-scratch" className="hover:text-black transition">START FROM SCRATCH</a>
+          <a href="/products" className="hover:text-black transition">PRODUCTS</a>
+          <a href="/contact" className="hover:text-black transition">CONTACT</a>
+        </nav>
+        
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden p-2"
+          aria-label="Toggle menu"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        
+        <div className="bg-black text-white px-3 md:px-4 py-2 rounded font-semibold text-sm">
+          <a href="/cart" className="text-white">CART</a>
+        </div>
+      </header>
+
+      {/* Mobile Navigation Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-gray-50 border-b border-gray-200 px-4 py-4">
+          <nav className="flex flex-col gap-4 text-sm font-medium text-gray-600">
+            <a href="/quiz" className="hover:text-black transition py-2">QUIZ</a>
+            <a href="/start-from-scratch" className="hover:text-black transition py-2">START FROM SCRATCH</a>
+            <a href="/products" className="hover:text-black transition py-2">PRODUCTS</a>
+            <a href="/contact" className="hover:text-black transition py-2">CONTACT</a>
+          </nav>
+        </div>
+      )}
+
+      <main className="min-h-screen bg-gray-50 text-black px-6 py-12 font-sans">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-3xl font-bold mb-8 text-center">Checkout</h1>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Order Summary */}
+            <div className="lg:order-2">
+              <div className="border border-gray-200 rounded-lg p-6 shadow-sm">
+                <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+                <div className="space-y-4">
+                  {cartItems.map((item, index) => (
+                    <div key={index} className="flex justify-between items-start">
+                      <div>
+                        <h3 className="font-semibold">Custom Blend x1</h3>
+                        <p className="text-sm text-gray-600">30 servings</p>
+                      </div>
+                      <span className="font-semibold">${item.cost.toFixed(2)}</span>
+                    </div>
+                  ))}
+                  <div className="border-t border-gray-200 pt-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-semibold">Total</span>
+                      <span className="text-xl font-bold">${getTotalCost().toFixed(2)}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Stripe Checkout Redirect */}
+            <div className="lg:order-1">
+              <div className="border border-gray-200 rounded-lg p-6 shadow-sm">
+                <h2 className="text-xl font-semibold mb-4">Complete Your Order</h2>
+                <p className="text-gray-600 mb-6">
+                  Click the button below to complete your purchase securely through Stripe.
+                </p>
+                <button
+                  onClick={createStripeCheckout}
+                  disabled={isLoading}
+                  className="w-full bg-black text-white px-8 py-4 rounded-full text-lg font-semibold shadow-md hover:bg-blue-700 transition min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? 'Creating Checkout...' : 'Proceed to Secure Checkout'}
+                </button>
+                <p className="text-xs text-gray-500 mt-4 text-center">
+                  You'll be redirected to Stripe's secure payment page
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
+  );
+} 
