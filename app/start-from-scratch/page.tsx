@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { calculateFinalPrice, getCostBreakdown } from "../../lib/pricing";
 import { getTooltip } from "../../lib/tooltips";
 
@@ -79,15 +80,15 @@ export default function StartFromScratchPage() {
     <>
       {/* Header */}
       <header className="flex justify-between items-center px-8 py-6 border-b border-gray-200 bg-white text-black">
-        <a href="/" className="text-2xl font-bold hover:opacity-80 transition">ADAPTIV</a>
+                       <Link href="/" className="text-2xl font-bold hover:opacity-80 transition">ADAPTIV</Link>
         <nav className="flex gap-8 text-sm font-medium text-gray-600">
-          <a href="/quiz" className="hover:text-black transition">QUIZ</a>
-          <a href="/start-from-scratch" className="hover:text-black transition">START FROM SCRATCH</a>
-          <a href="/products" className="hover:text-black transition">PRODUCTS</a>
-          <a href="/contact" className="hover:text-black transition">CONTACT</a>
+          <Link href="/quiz" className="hover:text-black transition">QUIZ</Link>
+          <Link href="/start-from-scratch" className="hover:text-black transition">START FROM SCRATCH</Link>
+          <Link href="/products" className="hover:text-black transition">PRODUCTS</Link>
+          <Link href="/contact" className="hover:text-black transition">CONTACT</Link>
         </nav>
         <div className="bg-black text-white px-4 py-2 rounded font-semibold text-sm">
-          <a href="/cart" className="text-white">CART</a>
+          <Link href="/cart" className="text-white">CART</Link>
         </div>
       </header>
 

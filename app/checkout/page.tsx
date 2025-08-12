@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 type Ingredient = {
@@ -13,8 +12,7 @@ type Ingredient = {
 
 export default function CheckoutPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<{ingredients: Ingredient[], cost: number}[]>([]);
-  const router = useRouter();
+           const [cartItems, setCartItems] = useState<{ingredients: Ingredient[], cost: number}[]>([]);
 
   useEffect(() => {
     // Load cart items from localStorage
@@ -78,21 +76,21 @@ export default function CheckoutPage() {
     <>
       {/* Header */}
       <header className="flex justify-between items-center px-4 md:px-8 py-6 border-b border-gray-200 mb-5 bg-white">
-        <a href="/" className="hover:opacity-80 transition">
-          <svg className="h-8 md:h-10 w-auto" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
-            <g stroke="black" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" fill="none">
-              <path d="M10 30 L25 8 L40 30"/>
-              <path d="M45 8 L60 30 L75 8"/>
-            </g>
-          </svg>
-        </a>
+                       <Link href="/" className="hover:opacity-80 transition">
+                 <svg className="h-8 md:h-10 w-auto" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+                   <g stroke="black" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" fill="none">
+                     <path d="M10 30 L25 8 L40 30"/>
+                     <path d="M45 8 L60 30 L75 8"/>
+                   </g>
+                 </svg>
+               </Link>
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6 lg:gap-8 text-sm font-medium text-gray-600">
-          <a href="/quiz" className="hover:text-black transition">QUIZ</a>
-          <a href="/start-from-scratch" className="hover:text-black transition">START FROM SCRATCH</a>
-          <a href="/products" className="hover:text-black transition">PRODUCTS</a>
-          <a href="/contact" className="hover:text-black transition">CONTACT</a>
+                           <Link href="/quiz" className="hover:text-black transition">QUIZ</Link>
+                 <Link href="/start-from-scratch" className="hover:text-black transition">START FROM SCRATCH</Link>
+                 <Link href="/products" className="hover:text-black transition">PRODUCTS</Link>
+                 <Link href="/contact" className="hover:text-black transition">CONTACT</Link>
         </nav>
         
         {/* Mobile Menu Button */}
@@ -107,7 +105,7 @@ export default function CheckoutPage() {
         </button>
         
         <div className="bg-black text-white px-3 md:px-4 py-2 rounded font-semibold text-sm">
-          <a href="/cart" className="text-white">CART</a>
+                           <Link href="/cart" className="text-white">CART</Link>
         </div>
       </header>
 
@@ -115,10 +113,10 @@ export default function CheckoutPage() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-gray-50 border-b border-gray-200 px-4 py-4">
           <nav className="flex flex-col gap-4 text-sm font-medium text-gray-600">
-            <a href="/quiz" className="hover:text-black transition py-2">QUIZ</a>
-            <a href="/start-from-scratch" className="hover:text-black transition py-2">START FROM SCRATCH</a>
-            <a href="/products" className="hover:text-black transition py-2">PRODUCTS</a>
-            <a href="/contact" className="hover:text-black transition py-2">CONTACT</a>
+                               <Link href="/quiz" className="hover:text-black transition py-2">QUIZ</Link>
+                   <Link href="/start-from-scratch" className="hover:text-black transition py-2">START FROM SCRATCH</Link>
+                   <Link href="/products" className="hover:text-black transition py-2">PRODUCTS</Link>
+                   <Link href="/contact" className="hover:text-black transition py-2">CONTACT</Link>
           </nav>
         </div>
       )}
@@ -166,9 +164,9 @@ export default function CheckoutPage() {
                 >
                   {isLoading ? 'Creating Checkout...' : 'Proceed to Secure Checkout'}
                 </button>
-                <p className="text-xs text-gray-500 mt-4 text-center">
-                  You'll be redirected to Stripe's secure payment page
-                </p>
+                                       <p className="text-xs text-gray-500 mt-4 text-center">
+                         You&apos;ll be redirected to Stripe&apos;s secure payment page
+                       </p>
               </div>
             </div>
           </div>

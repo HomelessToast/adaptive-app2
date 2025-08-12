@@ -51,17 +51,24 @@ export function calculateIngredientCost(name: string, amount: number, unit: stri
   return adjustedAmount * pricePerMg;
 }
 
+interface Ingredient {
+  name: string;
+  amount?: number;
+  unit?: string;
+  subIngredients?: Ingredient[];
+}
+
 // Calculate total ingredient cost for a supplement
-export function calculateTotalIngredientCost(ingredients: any[]): number {
+export function calculateTotalIngredientCost(ingredients: Ingredient[]): number {
   let total = 0;
   
-  ingredients.forEach(ingredient => {
+  ingredients.forEach((ingredient) => {
     if (ingredient.amount && ingredient.unit) {
       total += calculateIngredientCost(ingredient.name, ingredient.amount, ingredient.unit);
     }
     
     if (ingredient.subIngredients) {
-      ingredient.subIngredients.forEach((sub: any) => {
+      ingredient.subIngredients.forEach((sub: Ingredient) => {
         if (sub.amount && sub.unit) {
           total += calculateIngredientCost(sub.name, sub.amount, sub.unit);
         }
@@ -73,15 +80,14 @@ export function calculateTotalIngredientCost(ingredients: any[]): number {
 }
 
 // Calculate final price including base costs
-export function calculateFinalPrice(ingredients: any[]): number {
+export function calculateFinalPrice(ingredients: Ingredient[]): number {
   const ingredientCost = calculateTotalIngredientCost(ingredients);
   const baseCost = BASE_COSTS.CUSTOM_MANUFACTURING + BASE_COSTS.QUALITY_TESTING + BASE_COSTS.PACKAGING_SHIPPING;
-  
-  return ingredientCost + baseCost;
+  return Math.round((ingredientCost + baseCost) * 100) / 100;
 }
 
 // Get cost breakdown for display
-export function getCostBreakdown(ingredients: any[]): {
+export function getCostBreakdown(ingredients: Ingredient[]): {
   ingredientCost: number;
   customManufacturing: number;
   qualityTesting: number;
@@ -89,7 +95,6 @@ export function getCostBreakdown(ingredients: any[]): {
   total: number;
 } {
   const ingredientCost = calculateTotalIngredientCost(ingredients);
-  
   return {
     ingredientCost: Math.round(ingredientCost * 100) / 100,
     customManufacturing: BASE_COSTS.CUSTOM_MANUFACTURING,

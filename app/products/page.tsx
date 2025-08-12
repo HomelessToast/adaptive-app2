@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function ProductsPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -9,14 +10,14 @@ export default function ProductsPage() {
     <>
       {/* Header */}
       <header className="flex justify-between items-center px-4 md:px-8 py-6 border-b border-gray-200 w-full bg-white text-black">
-        <a href="/" className="text-xl md:text-2xl font-bold hover:opacity-80 transition">ADAPTIV</a>
+                       <Link href="/" className="text-xl md:text-2xl font-bold hover:opacity-80 transition">ADAPTIV</Link>
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6 lg:gap-8 text-sm font-medium text-gray-600">
-          <a href="/quiz" className="hover:text-black transition">QUIZ</a>
-          <a href="/start-from-scratch" className="hover:text-black transition">START FROM SCRATCH</a>
-          <a href="/products" className="hover:text-black transition">PRODUCTS</a>
-          <a href="/contact" className="hover:text-black transition">CONTACT</a>
+          <Link href="/quiz" className="hover:text-black transition">QUIZ</Link>
+          <Link href="/start-from-scratch" className="hover:text-black transition">START FROM SCRATCH</Link>
+          <Link href="/products" className="hover:text-black transition">PRODUCTS</Link>
+          <Link href="/contact" className="hover:text-black transition">CONTACT</Link>
         </nav>
         
         {/* Mobile Menu Button */}
@@ -31,7 +32,7 @@ export default function ProductsPage() {
         </button>
         
         <div className="bg-black text-white px-3 md:px-4 py-2 rounded font-semibold text-sm">
-          <a href="/cart" className="text-white">CART</a>
+          <Link href="/cart" className="text-white">CART</Link>
         </div>
       </header>
 
@@ -39,16 +40,16 @@ export default function ProductsPage() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-gray-200 px-4 py-4">
           <nav className="flex flex-col gap-4 text-sm font-medium text-gray-600">
-            <a href="/quiz" className="hover:text-black transition py-2">QUIZ</a>
-            <a href="/start-from-scratch" className="hover:text-black transition py-2">START FROM SCRATCH</a>
-            <a href="/products" className="hover:text-black transition py-2">PRODUCTS</a>
-            <a href="/contact" className="hover:text-black transition py-2">CONTACT</a>
+            <Link href="/quiz" className="hover:text-black transition py-2">QUIZ</Link>
+            <Link href="/start-from-scratch" className="hover:text-black transition py-2">START FROM SCRATCH</Link>
+            <Link href="/products" className="hover:text-black transition py-2">PRODUCTS</Link>
+            <Link href="/contact" className="hover:text-black transition py-2">CONTACT</Link>
           </nav>
         </div>
       )}
 
       <main className="min-h-screen bg-white text-black font-sans px-4 md:px-6 py-8 md:py-12">
-        <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">Know what sport you're looking for?</h1>
+        <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">Know what sport you&apos;re looking for?</h1>
         <h2 className="text-lg md:text-xl text-gray-600 mb-8 md:mb-10 text-center">Try one of our premade sport blends, made by the pros</h2>
         {/* Sport Blend Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto">

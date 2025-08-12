@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 type Question = {
@@ -77,7 +78,7 @@ export default function QuizPage() {
   const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
-  const [showResult, setShowResult] = useState(false);
+  const [showResult] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const q = questions[currentQuestion];
@@ -98,14 +99,14 @@ export default function QuizPage() {
     <>
       {/* Header */}
       <header className="flex justify-between items-center px-4 md:px-8 py-3 border-b border-gray-200 w-full bg-white text-black">
-        <a href="/" className="text-xl md:text-2xl font-bold hover:opacity-80 transition">ADAPTIV</a>
+        <Link href="/" className="text-xl md:text-2xl font-bold hover:opacity-80 transition">ADAPTIV</Link>
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6 lg:gap-8 text-sm font-medium text-gray-600">
-          <a href="/quiz" className="hover:text-black transition">QUIZ</a>
-          <a href="/start-from-scratch" className="hover:text-black transition">START FROM SCRATCH</a>
-          <a href="/products" className="hover:text-black transition">PRODUCTS</a>
-          <a href="/contact" className="hover:text-black transition">CONTACT</a>
+          <Link href="/quiz" className="hover:text-black transition">QUIZ</Link>
+          <Link href="/start-from-scratch" className="hover:text-black transition">START FROM SCRATCH</Link>
+          <Link href="/products" className="hover:text-black transition">PRODUCTS</Link>
+          <Link href="/contact" className="hover:text-black transition">CONTACT</Link>
         </nav>
         
         {/* Mobile Menu Button */}
@@ -120,7 +121,7 @@ export default function QuizPage() {
         </button>
         
         <div className="bg-black text-white px-3 md:px-4 py-2 rounded font-semibold text-sm">
-          <a href="/cart" className="text-white">CART</a>
+          <Link href="/cart" className="text-white">CART</Link>
         </div>
       </header>
 
@@ -128,10 +129,10 @@ export default function QuizPage() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-gray-200 px-4 py-4">
           <nav className="flex flex-col gap-4 text-sm font-medium text-gray-600">
-            <a href="/quiz" className="hover:text-black transition py-2">QUIZ</a>
-            <a href="/start-from-scratch" className="hover:text-black transition py-2">START FROM SCRATCH</a>
-            <a href="/products" className="hover:text-black transition py-2">PRODUCTS</a>
-            <a href="/contact" className="hover:text-black transition py-2">CONTACT</a>
+            <Link href="/quiz" className="hover:text-black transition py-2">QUIZ</Link>
+            <Link href="/start-from-scratch" className="hover:text-black transition py-2">START FROM SCRATCH</Link>
+            <Link href="/products" className="hover:text-black transition py-2">PRODUCTS</Link>
+            <Link href="/contact" className="hover:text-black transition py-2">CONTACT</Link>
           </nav>
         </div>
       )}
@@ -156,8 +157,8 @@ export default function QuizPage() {
           {/* Friendly Intro */}
           {currentQuestion === 0 && userAnswers.length === 0 && (
             <div className="mb-1 text-center px-4">
-              <h2 className="text-xl md:text-2xl font-bold mb-2">Let's personalize your pre-workout!</h2>
-              <p className="text-gray-600 max-w-md mx-auto text-sm md:text-base">Answer a few quick questions and we'll build a formula just for you.</p>
+              <h2 className="text-xl md:text-2xl font-bold mb-2">Let&apos;s personalize your pre-workout!</h2>
+              <p className="text-gray-600 max-w-md mx-auto text-sm md:text-base">Answer a few quick questions and we&apos;ll build a formula just for you.</p>
             </div>
           )}
           {/* Progress Indicator */}
