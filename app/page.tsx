@@ -15,28 +15,37 @@ export default function Home() {
 
   const textRef = useRef<HTMLHeadingElement | null>(null);
 
-  // Mouse proximity logic
+  // Auto-start word rotation after 0.5 seconds
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!textRef.current || triggered) return;
+    const timer = setTimeout(() => {
+      setTriggered(true);
+    }, 500);
 
-      const rect = textRef.current.getBoundingClientRect();
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
+    return () => clearTimeout(timer);
+  }, []);
 
-      const distance = Math.sqrt(
-        Math.pow(mouseX - (rect.left + rect.width / 2), 2) +
-        Math.pow(mouseY - (rect.top + rect.height / 2), 2)
-      );
+  // Mouse proximity logic (keeping for potential future use)
+  // useEffect(() => {
+  //   const handleMouseMove = (e: MouseEvent) => {
+  //     if (!textRef.current || triggered) return;
 
-      if (distance < 500) {
-        setTriggered(true);
-      }
-    };
+  //     const rect = textRef.current.getBoundingClientRect();
+  //     const mouseX = e.clientX;
+  //     const mouseY = e.clientY;
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [triggered]);
+  //     const distance = Math.sqrt(
+  //       Math.pow(mouseX - (rect.left + rect.width / 2), 2) +
+  //       Math.pow(mouseY - (rect.top + rect.height / 2), 2)
+  //     );
+
+  //     if (distance < 500) {
+  //       setTriggered(true);
+  //     }
+  //   };
+
+  //   window.addEventListener("mousemove", handleMouseMove);
+  //   return () => window.removeEventListener("mousemove", handleMouseMove);
+  // }, [triggered]);
 
   // Word rotation logic
   useEffect(() => {
