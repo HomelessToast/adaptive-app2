@@ -21,13 +21,13 @@ export default function ImageSlider() {
   }, []);
 
   return (
-    <div className="w-[500px] h-[750px] relative overflow-hidden">
+    <div className="w-full max-w-[500px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[750px] relative overflow-hidden rounded-lg">
       {images.map((src, index) => (
         <img
           key={index}
           src={src}
           alt={`Athlete ${index + 1}`}
-          className={`absolute top-0 left-0 w-[500px] h-[750px] object-cover transition-opacity duration-1000 ${
+          className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
             index === current ? "opacity-100" : "opacity-0"
           }`}
         />

@@ -27,6 +27,21 @@ body {
   @apply font-sans;
 }
 
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Ensure minimum touch target size */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improve text readability on small screens */
+  p, h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
 @keyframes spinY {
   0% {
     transform: rotateX(0deg);
