@@ -17,12 +17,12 @@ export async function POST(request: NextRequest) {
     // Format ingredient details for manufacturing
     const formatIngredientDetails = (ingredients: any[]) => {
       if (!ingredients || ingredients.length === 0) {
-        return '<p><em>No ingredient details available</em></p>';
+        return '<p><em>Ingredient details available in abbreviated format in Stripe metadata</em></p>';
       }
 
       return ingredients.map((blend, index) => `
         <div style="margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
-          <h4 style="margin: 0 0 15px 0; color: #333;">Blend ${blend.blend} - $${blend.cost.toFixed(2)}</h4>
+          <h4 style="margin: 0 0 15px 0; color: #333;">Blend ${blend.blend}</h4>
           <table style="width: 100%; border-collapse: collapse;">
             <thead>
               <tr style="background: #f8f9fa;">
@@ -38,13 +38,6 @@ export async function POST(request: NextRequest) {
                   <td style="padding: 8px; text-align: right; border-bottom: 1px solid #eee;">${ing.amount || 'N/A'}</td>
                   <td style="padding: 8px; border-bottom: 1px solid #eee;">${ing.unit || 'N/A'}</td>
                 </tr>
-                ${ing.subIngredients ? ing.subIngredients.map(sub => `
-                  <tr style="background: #fafafa;">
-                    <td style="padding: 8px 8px 8px 20px; border-bottom: 1px solid #eee; color: #666;">└ ${sub.name}</td>
-                    <td style="padding: 8px; text-align: right; border-bottom: 1px solid #eee;">${sub.amount || 'N/A'}</td>
-                    <td style="padding: 8px; border-bottom: 1px solid #eee;">${sub.unit || 'N/A'}</td>
-                  </tr>
-                `).join('') : ''}
               `).join('')}
             </tbody>
           </table>

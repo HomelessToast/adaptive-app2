@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { getFullIngredientName } from '../../lib/ingredient-abbreviations';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2024-12-18.acacia',
@@ -33,11 +34,42 @@ export async function POST(request: NextRequest) {
         console.log('Customer name:', session.customer_details?.name);
         console.log('Order total:', session.amount_total);
         
-        // Since we can't store ingredient details in Stripe metadata due to character limits,
-        // we'll need to handle this differently. For now, we'll send a basic email
-        // and you can implement a database solution to store/retrieve ingredient details
+        // Extract ingredient details from metadata and success URL
+        let ingredientDetails: any[] = [];
         
-        console.log('Metadata:', session.metadata);
+        // Try to get abbreviated summary from metadata
+        if (session.metadata?.ingredient_summary) {
+          console.log('Ingredient summary from metadata:', session.metadata.ingredient_summary);
+          
+          // Parse abbreviated summary (format: B1:Creatine:4800mg,Beta-Ala:3840mg|B2:...)
+          try {
+            const blendSummaries = session.metadata.ingredient_summary.split('|');
+            ingredientDetails = blendSummaries.map((blendSummary, index) => {
+              const [blendId, ...ingredients] = blendSummary.split(':');
+              const blendIngredients = [];
+              
+              for (let i = 0; i < ingredients.length; i += 3) {
+                if (ingredients[i + 1] && ingredients[i + 2]) {
+                  blendIngredients.push({
+                    name: getFullIngredientName(ingredients[i]),
+                    amount: parseInt(ingredients[i + 1]),
+                    unit: ingredients[i + 2]
+                  });
+                }
+              }
+              
+              return {
+                blend: index + 1,
+                ingredients: blendIngredients,
+                cost: 0 // We'll get this from the line items
+              };
+            });
+          } catch (parseError) {
+            console.error('Error parsing ingredient summary:', parseError);
+          }
+        }
+        
+        console.log('Parsed ingredient details:', ingredientDetails);
         
         // Send order confirmation emails
         try {
@@ -57,7 +89,7 @@ export async function POST(request: NextRequest) {
               customerEmail: session.customer_details?.email || 'unknown@email.com',
               customerName: session.customer_details?.name || 'Unknown Customer',
               orderTotal: session.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : '$0.00',
-              ingredientDetails: [], // Empty for now - we'll implement a better solution
+              ingredientDetails: ingredientDetails,
               metadata: session.metadata
             }),
           });
@@ -72,7 +104,8 @@ export async function POST(request: NextRequest) {
               emailsSent: true,
               customerEmail: session.customer_details?.email,
               orderTotal: session.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : '$0.00',
-              note: 'Ingredient details not available in webhook - need database solution'
+              hasIngredientDetails: ingredientDetails.length > 0,
+              ingredientSummary: session.metadata?.ingredient_summary
             });
           } else {
             const errorText = await emailResponse.text();
