@@ -22,13 +22,14 @@ export async function POST(request: NextRequest) {
 
       let html = '<div style="margin: 20px 0;">';
       
-      // Add serving information if available
-      if (facts.servingSize || facts.servingsPerContainer) {
+      // Add serving information and flavor if available
+      if (facts.servingSize || facts.servingsPerContainer || facts.flavor) {
         html += `
           <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-            <h4 style="margin: 0 0 10px 0; color: #333;">Serving Information</h4>
+            <h4 style="margin: 0 0 10px 0; color: #333;">Product Specifications</h4>
             ${facts.servingSize ? `<p><strong>Serving Size:</strong> ${facts.servingSize}</p>` : ''}
             ${facts.servingsPerContainer ? `<p><strong>Servings Per Container:</strong> ${facts.servingsPerContainer}</p>` : ''}
+            ${facts.flavor ? `<p><strong>Flavor:</strong> <span style="color: #2563eb; font-weight: 600;">${facts.flavor}</span></p>` : ''}
           </div>
         `;
       }

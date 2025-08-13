@@ -12,7 +12,7 @@ type Ingredient = {
 
 export default function CheckoutPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-           const [cartItems, setCartItems] = useState<{ingredients: Ingredient[], cost: number}[]>([]);
+  const [cartItems, setCartItems] = useState<{ingredients: Ingredient[], cost: number, flavor?: string}[]>([]);
 
   useEffect(() => {
     // Load cart items from localStorage
@@ -35,6 +35,7 @@ export default function CheckoutPage() {
       const supplementFacts = {
         servingSize: "1 Scoop",
         servingsPerContainer: 30,
+        flavor: cartItems[0]?.flavor || "Unspecified", // Add flavor from cart
         categories: {
           "Amount Per Serving": cartItems.map(item => 
             item.ingredients.filter(ing => !ing.subIngredients)
