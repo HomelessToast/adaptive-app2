@@ -61,6 +61,18 @@ export async function POST(request: NextRequest) {
       quantity: 1,
     }));
 
+    // Prepare detailed ingredient information for manufacturing
+    const ingredientDetails = cartItems.map((item, index) => ({
+      blend: index + 1,
+      ingredients: item.ingredients.map(ing => ({
+        name: ing.name,
+        amount: ing.amount,
+        unit: ing.unit,
+        subIngredients: ing.subIngredients
+      })),
+      cost: item.cost
+    }));
+
     // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -71,6 +83,9 @@ export async function POST(request: NextRequest) {
       metadata: {
         total_cost: totalCost.toString(),
         item_count: cartItems.length.toString(),
+        ingredient_details: JSON.stringify(ingredientDetails),
+        customer_name: '', // Will be filled by Stripe
+        customer_email: '', // Will be filled by Stripe
       },
     });
 

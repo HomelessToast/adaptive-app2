@@ -33,6 +33,12 @@ export async function POST(request: NextRequest) {
         console.log('Customer name:', session.customer_details?.name);
         console.log('Order total:', session.amount_total);
         
+        // Extract ingredient details from metadata
+        const ingredientDetails = session.metadata?.ingredient_details ? 
+          JSON.parse(session.metadata.ingredient_details) : [];
+        
+        console.log('Ingredient details:', ingredientDetails);
+        
         // Send order confirmation emails
         try {
           console.log('Attempting to send order confirmation emails...');
@@ -51,6 +57,7 @@ export async function POST(request: NextRequest) {
               customerEmail: session.customer_details?.email || 'unknown@email.com',
               customerName: session.customer_details?.name || 'Unknown Customer',
               orderTotal: session.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : '$0.00',
+              ingredientDetails: ingredientDetails,
             }),
           });
 
@@ -63,7 +70,8 @@ export async function POST(request: NextRequest) {
               received: true, 
               emailsSent: true,
               customerEmail: session.customer_details?.email,
-              orderTotal: session.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : '$0.00'
+              orderTotal: session.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : '$0.00',
+              hasIngredientDetails: ingredientDetails.length > 0
             });
           } else {
             const errorText = await emailResponse.text();
