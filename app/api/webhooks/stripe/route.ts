@@ -29,12 +29,59 @@ export async function POST(request: NextRequest) {
       case 'checkout.session.completed':
         const session = event.data.object as Stripe.Checkout.Session;
         console.log('Payment successful for session:', session.id);
+        console.log('Customer email:', session.customer_details?.email);
+        console.log('Customer name:', session.customer_details?.name);
+        console.log('Order total:', session.amount_total);
         
-        // Here you would typically:
-        // 1. Update your database to mark the order as paid
-        // 2. Send confirmation emails
-        // 3. Trigger order fulfillment processes
-        // 4. Update inventory
+        // Send order confirmation emails
+        try {
+          console.log('Attempting to send order confirmation emails...');
+          console.log('Base URL:', process.env.NEXT_PUBLIC_BASE_URL);
+          
+          const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/send-email`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              orderDetails: {
+                id: session.id,
+                amount: session.amount_total ? session.amount_total / 100 : 0,
+              },
+              customerEmail: session.customer_details?.email || 'unknown@email.com',
+              customerName: session.customer_details?.name || 'Unknown Customer',
+              orderTotal: session.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : '$0.00',
+            }),
+          });
+
+          console.log('Email API response status:', emailResponse.status);
+          
+          if (emailResponse.ok) {
+            const emailResult = await emailResponse.json();
+            console.log('Order confirmation emails sent successfully:', emailResult);
+            return NextResponse.json({ 
+              received: true, 
+              emailsSent: true,
+              customerEmail: session.customer_details?.email,
+              orderTotal: session.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : '$0.00'
+            });
+          } else {
+            const errorText = await emailResponse.text();
+            console.error('Failed to send order confirmation emails:', errorText);
+            return NextResponse.json({ 
+              received: true, 
+              emailsSent: false,
+              emailError: errorText
+            });
+          }
+        } catch (emailError) {
+          console.error('Error sending order confirmation emails:', emailError);
+          return NextResponse.json({ 
+            received: true, 
+            emailsSent: false,
+            emailError: emailError.message
+          });
+        }
         
         break;
       
