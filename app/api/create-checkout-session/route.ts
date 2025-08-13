@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { abbreviateIngredient } from '../../lib/ingredient-abbreviations';
+import { abbreviateIngredient } from '../../../lib/ingredient-abbreviations';
 
 // Only import Stripe if we have the required environment variables
 let stripe: any = null;
