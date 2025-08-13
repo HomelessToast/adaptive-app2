@@ -31,12 +31,32 @@ export default function CheckoutPage() {
   const createStripeCheckout = async () => {
     setIsLoading(true);
     try {
+      // Create the complete supplement facts data structure
+      const supplementFacts = {
+        servingSize: "1 Scoop",
+        servingsPerContainer: 30,
+        categories: {
+          "Amount Per Serving": cartItems.map(item => 
+            item.ingredients.filter(ing => !ing.subIngredients)
+          ).flat(),
+          "Electrolytes": cartItems.map(item => 
+            item.ingredients.find(ing => ing.name === "Electrolytes")?.subIngredients || []
+          ).flat(),
+          "Nootropics": cartItems.map(item => 
+            item.ingredients.find(ing => ing.name === "Nootropics")?.subIngredients || []
+          ).flat(),
+          "Vitamins & Minerals": cartItems.map(item => 
+            item.ingredients.find(ing => ing.name === "Vitamins & Minerals")?.subIngredients || []
+          ).flat()
+        }
+      };
+
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ cartItems }),
+        body: JSON.stringify({ cartItems, supplementFacts }),
       });
 
       const data = await response.json();
