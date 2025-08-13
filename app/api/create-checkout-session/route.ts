@@ -61,17 +61,13 @@ export async function POST(request: NextRequest) {
       quantity: 1,
     }));
 
-    // Prepare detailed ingredient information for manufacturing
-    const ingredientDetails = cartItems.map((item, index) => ({
-      blend: index + 1,
-      ingredients: item.ingredients.map(ing => ({
-        name: ing.name,
-        amount: ing.amount,
-        unit: ing.unit,
-        subIngredients: ing.subIngredients
-      })),
-      cost: item.cost
-    }));
+    // Store minimal metadata in Stripe (under 500 chars)
+    const metadata = {
+      total_cost: totalCost.toString(),
+      item_count: cartItems.length.toString(),
+      has_custom_ingredients: 'true',
+      order_type: 'custom_blend'
+    };
 
     // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
@@ -80,14 +76,11 @@ export async function POST(request: NextRequest) {
       mode: 'payment',
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/checkout`,
-      metadata: {
-        total_cost: totalCost.toString(),
-        item_count: cartItems.length.toString(),
-        ingredient_details: JSON.stringify(ingredientDetails),
-        customer_name: '', // Will be filled by Stripe
-        customer_email: '', // Will be filled by Stripe
-      },
+      metadata: metadata,
     });
+
+    // Store detailed ingredient information in session storage or pass through success URL
+    // We'll handle this in the webhook by retrieving from the cart data
 
     return NextResponse.json({ sessionId: session.id, url: session.url });
   } catch (error) {

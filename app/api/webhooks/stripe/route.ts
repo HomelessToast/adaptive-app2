@@ -33,11 +33,11 @@ export async function POST(request: NextRequest) {
         console.log('Customer name:', session.customer_details?.name);
         console.log('Order total:', session.amount_total);
         
-        // Extract ingredient details from metadata
-        const ingredientDetails = session.metadata?.ingredient_details ? 
-          JSON.parse(session.metadata.ingredient_details) : [];
+        // Since we can't store ingredient details in Stripe metadata due to character limits,
+        // we'll need to handle this differently. For now, we'll send a basic email
+        // and you can implement a database solution to store/retrieve ingredient details
         
-        console.log('Ingredient details:', ingredientDetails);
+        console.log('Metadata:', session.metadata);
         
         // Send order confirmation emails
         try {
@@ -57,7 +57,8 @@ export async function POST(request: NextRequest) {
               customerEmail: session.customer_details?.email || 'unknown@email.com',
               customerName: session.customer_details?.name || 'Unknown Customer',
               orderTotal: session.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : '$0.00',
-              ingredientDetails: ingredientDetails,
+              ingredientDetails: [], // Empty for now - we'll implement a better solution
+              metadata: session.metadata
             }),
           });
 
@@ -71,7 +72,7 @@ export async function POST(request: NextRequest) {
               emailsSent: true,
               customerEmail: session.customer_details?.email,
               orderTotal: session.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : '$0.00',
-              hasIngredientDetails: ingredientDetails.length > 0
+              note: 'Ingredient details not available in webhook - need database solution'
             });
           } else {
             const errorText = await emailResponse.text();
