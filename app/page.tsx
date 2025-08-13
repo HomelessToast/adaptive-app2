@@ -114,11 +114,14 @@ export default function Home() {
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-3 leading-tight text-center px-2"
               style={{ perspective: "1000px" }}
             >
-              Create completely custom pre-workout for{" "}
+              Create completely custom
+              <br />
+              pre-workout for
+              <br />
               <span
                 key={currentWord}
                 className="font-bold animate-spinY inline-block text-center"
-                style={{ display: "inline-block", minWidth: "10ch", maxWidth: "100%" }}
+                style={{ display: "inline-block" }}
               >
                 {currentWord}.
               </span>
