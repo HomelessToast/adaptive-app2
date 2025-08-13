@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { abbreviateIngredient } from '../../../lib/ingredient-abbreviations';
 
 // Only import Stripe if we have the required environment variables
 let stripe: any = null;
@@ -37,7 +36,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { cartItems } = await request.json();
+    const { cartItems, supplementFacts } = await request.json();
 
     if (!cartItems || cartItems.length === 0) {
       return NextResponse.json(
@@ -62,29 +61,20 @@ export async function POST(request: NextRequest) {
       quantity: 1,
     }));
 
-    // Create abbreviated ingredient summary for metadata (staying under 500 chars)
-    const abbreviatedSummary = cartItems.map((item, index) => {
-      const ingredientList = item.ingredients.map(ing => 
-        `${abbreviateIngredient(ing.name)}:${ing.amount}${ing.unit}`
-      ).join(',');
-      return `B${index + 1}:${ingredientList}`;
-    }).join('|');
-
-    // Store essential metadata in Stripe (under 500 chars)
+    // Store minimal metadata in Stripe (under 500 chars)
     const metadata = {
       total_cost: totalCost.toString(),
       item_count: cartItems.length.toString(),
       has_custom_ingredients: 'true',
-      order_type: 'custom_blend',
-      ingredient_summary: abbreviatedSummary.substring(0, 200) // Limit to 200 chars to be safe
+      order_type: 'custom_blend'
     };
 
-    // Create Stripe Checkout Session with ingredient data in success URL
+    // Create Stripe Checkout Session with complete supplement facts data in success URL
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/checkout/success?session_id={CHECKOUT_SESSION_ID}&ingredients=${encodeURIComponent(JSON.stringify(cartItems))}`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/checkout/success?session_id={CHECKOUT_SESSION_ID}&supplement_facts=${encodeURIComponent(JSON.stringify(supplementFacts))}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/checkout`,
       metadata: metadata,
     });

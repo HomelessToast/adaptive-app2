@@ -1,0 +1,3 @@
+[33mb35a632[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Fix webhook import path for ingredient-abbreviations module
+[33mc8b3d83[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix import paths for ingredient-abbreviations module
+[33m8a67e6b[m Implement ingredient abbreviation system to stay within Stripe metadata limits
