@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { cartItems, supplementFacts } = await request.json();
+    const { cartItems, supplementFacts, discountCode } = await request.json();
 
     if (!cartItems || cartItems.length === 0) {
       return NextResponse.json(
@@ -48,6 +48,12 @@ export async function POST(request: NextRequest) {
     // Calculate total cost
     const totalCost = cartItems.reduce((total: number, item: CartItem) => total + item.cost, 0);
 
+    // Validate discount code (case-insensitive)
+    const validCodes = new Set(['TRAVIS', 'HYRUM', 'MASON', 'ZARA']);
+    const normalizedCode = typeof discountCode === 'string' ? discountCode.trim().toUpperCase() : '';
+    const isDiscountValid = validCodes.has(normalizedCode);
+    const discountMultiplier = isDiscountValid ? 0.9 : 1.0;
+
     // Create line items for Stripe
     const lineItems = cartItems.map((item: CartItem) => ({
       price_data: {
@@ -56,17 +62,22 @@ export async function POST(request: NextRequest) {
           name: 'Custom Pre Workout',
           description: '30 servings of your personalized supplement blend',
         },
-        unit_amount: Math.round(item.cost * 100), // Convert to cents
+        unit_amount: Math.round(item.cost * 100 * discountMultiplier), // Convert to cents with discount if applicable
       },
       quantity: 1,
     }));
 
     // Store minimal metadata in Stripe (under 500 chars)
+    const discountedTotal = +(totalCost * discountMultiplier).toFixed(2);
+
     const metadata = {
-      total_cost: totalCost.toString(),
+      total_cost: discountedTotal.toString(),
+      total_cost_before_discount: totalCost.toString(),
       item_count: cartItems.length.toString(),
       has_custom_ingredients: 'true',
-      order_type: 'custom_blend'
+      order_type: 'custom_blend',
+      discount_code: isDiscountValid ? normalizedCode : '',
+      discount_percent: isDiscountValid ? '10' : '0'
     };
 
     // Create Stripe Checkout Session with complete supplement facts data in success URL

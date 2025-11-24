@@ -15,6 +15,9 @@ export default function CartPage() {
   const [cartItems, setCartItems] = useState<{ingredients: Ingredient[], cost: number, flavor?: string}[]>([]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [discountCode, setDiscountCode] = useState('');
+  const [appliedCode, setAppliedCode] = useState<string | null>(null);
+  const [discountError, setDiscountError] = useState<string | null>(null);
 
   useEffect(() => {
     // Load cart items from localStorage
@@ -32,6 +35,21 @@ export default function CartPage() {
 
   const getTotalCost = () => {
     return cartItems.reduce((total, item) => total + item.cost, 0);
+  };
+
+  const isDiscountApplied = !!appliedCode;
+  const discountedTotal = isDiscountApplied ? +(getTotalCost() * 0.9).toFixed(2) : getTotalCost();
+
+  const handleApplyDiscount = () => {
+    const code = discountCode.trim().toUpperCase();
+    const validCodes = new Set(['TRAVIS', 'HYRUM', 'MASON', 'ZARA']);
+    if (validCodes.has(code)) {
+      setAppliedCode(code);
+      setDiscountError(null);
+    } else {
+      setAppliedCode(null);
+      setDiscountError('Invalid code. Try TRAVIS, HYRUM, MASON, or ZARA.');
+    }
   };
 
   const createStripeCheckout = async () => {
@@ -63,7 +81,7 @@ export default function CartPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ cartItems, supplementFacts }),
+        body: JSON.stringify({ cartItems, supplementFacts, discountCode: appliedCode }),
       });
 
       const data = await response.json();
@@ -227,10 +245,55 @@ export default function CartPage() {
 
           {/* Total and Checkout */}
           <div className="border-t border-gray-200 pt-6">
-            <div className="flex justify-between items-center mb-6">
-              <span className="text-xl font-semibold">Total</span>
-              <span className="text-2xl font-bold">${getTotalCost().toFixed(2)}</span>
+            {!isDiscountApplied ? (
+              <div className="flex justify-between items-center mb-6">
+                <span className="text-xl font-semibold">Total</span>
+                <span className="text-2xl font-bold">${getTotalCost().toFixed(2)}</span>
+              </div>
+            ) : (
+              <div className="mb-6 space-y-1">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">Subtotal</span>
+                  <span className="text-sm line-through text-gray-500">${getTotalCost().toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-green-700">Discount (10%)</span>
+                  <span className="text-sm text-green-700">- ${(getTotalCost() - discountedTotal).toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-xl font-semibold">Total</span>
+                  <span className="text-2xl font-bold">${discountedTotal.toFixed(2)}</span>
+                </div>
+              </div>
+            )}
+
+            {/* Discount Code */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium mb-2">Have a discount code?</label>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={discountCode}
+                  onChange={(e) => setDiscountCode(e.target.value)}
+                  placeholder="Enter code"
+                  className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={handleApplyDiscount}
+                  className="bg-black text-white px-4 py-2 rounded text-sm font-semibold"
+                >
+                  Apply
+                </button>
+              </div>
+              {appliedCode && (
+                <p className="text-sm text-green-700 mt-2">Code {appliedCode} applied. 10% off.</p>
+              )}
+              {discountError && (
+                <p className="text-sm text-red-600 mt-2">{discountError}</p>
+              )}
             </div>
+
             <div className="flex gap-4 justify-center">
               <Link 
                 href="/" 
