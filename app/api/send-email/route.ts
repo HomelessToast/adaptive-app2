@@ -12,7 +12,11 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(request: NextRequest) {
   try {
-    const { orderDetails, customerEmail, customerName, orderTotal, supplementFacts } = await request.json();
+    const { orderDetails, customerEmail, customerName, orderTotal, supplementFacts, metadata } = await request.json();
+
+    const discountCodeUsed = metadata?.discount_code || '';
+    const discountPercent = metadata?.discount_percent || '0';
+    const totalBeforeDiscount = metadata?.total_cost_before_discount || '';
 
     // Format supplement facts for manufacturing email
     const formatSupplementFacts = (facts: any) => {
@@ -140,6 +144,13 @@ export async function POST(request: NextRequest) {
             <p><strong>Order Total:</strong> $${orderTotal}</p>
             <p><strong>Order ID:</strong> ${orderDetails.id}</p>
             <p><strong>Order Date:</strong> ${new Date().toLocaleDateString()}</p>
+          </div>
+
+          <div style="background: #eef6ff; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #cfe2ff;">
+            <h3 style="color: #084298; margin-top: 0;">Discount Information</h3>
+            <p><strong>Discount Code Used:</strong> ${discountCodeUsed || 'None'}</p>
+            <p><strong>Discount Percent:</strong> ${discountCodeUsed ? discountPercent + '%' : '0%'}</p>
+            ${totalBeforeDiscount ? `<p><strong>Subtotal Before Discount:</strong> $${Number(totalBeforeDiscount).toFixed(2)}</p>` : ''}
           </div>
 
           <div style="background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #ffeaa7;">

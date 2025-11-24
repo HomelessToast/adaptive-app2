@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     const totalCost = cartItems.reduce((total: number, item: CartItem) => total + item.cost, 0);
 
     // Validate discount code (case-insensitive)
-    const validCodes = new Set(['TRAVIS', 'HYRUM', 'MASON', 'ZARA']);
+    const validCodes = new Set(['TRAVIS', 'HYRUM', 'MASON', 'ZARA', 'DYLAN']);
     const normalizedCode = typeof discountCode === 'string' ? discountCode.trim().toUpperCase() : '';
     const isDiscountValid = validCodes.has(normalizedCode);
     const discountMultiplier = isDiscountValid ? 0.9 : 1.0;

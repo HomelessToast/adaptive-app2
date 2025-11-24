@@ -34,13 +34,13 @@ export default function CheckoutPage() {
 
   const handleApplyDiscount = () => {
     const code = discountCode.trim().toUpperCase();
-    const validCodes = new Set(['TRAVIS', 'HYRUM', 'MASON', 'ZARA']);
+    const validCodes = new Set(['TRAVIS', 'HYRUM', 'MASON', 'ZARA', 'DYLAN']);
     if (validCodes.has(code)) {
       setAppliedCode(code);
       setDiscountError(null);
     } else {
       setAppliedCode(null);
-      setDiscountError('Invalid code. Try TRAVIS, HYRUM, MASON, or ZARA.');
+      setDiscountError('Invalid code. Try TRAVIS, HYRUM, MASON, ZARA, or DYLAN.');
     }
   };
 
