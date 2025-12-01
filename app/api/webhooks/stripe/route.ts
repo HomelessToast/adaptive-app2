@@ -66,6 +66,16 @@ export async function POST(request: NextRequest) {
               },
               customerEmail: session.customer_details?.email || 'unknown@email.com',
               customerName: session.customer_details?.name || 'Unknown Customer',
+              shippingAddress: {
+                name: session.customer_details?.name || '',
+                line1: session.customer_details?.address?.line1 || '',
+                line2: session.customer_details?.address?.line2 || '',
+                city: session.customer_details?.address?.city || '',
+                state: session.customer_details?.address?.state || '',
+                postalCode: session.customer_details?.address?.postal_code || '',
+                country: session.customer_details?.address?.country || '',
+                phone: session.customer_details?.phone || '',
+              },
               orderTotal: session.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : '$0.00',
               supplementFacts: supplementFacts,
               metadata: session.metadata

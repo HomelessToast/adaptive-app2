@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(request: NextRequest) {
   try {
-    const { orderDetails, customerEmail, customerName, orderTotal, supplementFacts, metadata } = await request.json();
+    const { orderDetails, customerEmail, customerName, orderTotal, supplementFacts, metadata, shippingAddress } = await request.json();
 
     const discountCodeUsed = metadata?.discount_code || '';
     const discountPercent = metadata?.discount_percent || '0';
@@ -110,6 +110,19 @@ export async function POST(request: NextRequest) {
       return html;
     };
 
+    const formatAddress = (addr: any) => {
+      if (!addr) return '<em>No shipping address provided</em>';
+      const parts = [
+        addr.name,
+        addr.line1,
+        addr.line2,
+        [addr.city, addr.state, addr.postalCode].filter(Boolean).join(', '),
+        addr.country
+      ].filter(Boolean);
+      const phone = addr.phone ? `<br/><strong>Phone:</strong> ${addr.phone}` : '';
+      return `${parts.join('<br/>')}${phone}`;
+    };
+
     // Email to customer
     const customerMailOptions = {
       from: process.env.EMAIL_USER,
@@ -124,6 +137,10 @@ export async function POST(request: NextRequest) {
             <h3>Order Details:</h3>
             <p><strong>Order Total:</strong> $${orderTotal}</p>
             <p><strong>Order ID:</strong> ${orderDetails.id}</p>
+          </div>
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3>Shipping To:</h3>
+            <p>${formatAddress(shippingAddress)}</p>
           </div>
           <p>We'll send you tracking information once your order ships.</p>
           <p>Best regards,<br>The ADAPTIV Team</p>
@@ -147,6 +164,11 @@ export async function POST(request: NextRequest) {
             <p><strong>Order Total:</strong> $${orderTotal}</p>
             <p><strong>Order ID:</strong> ${orderDetails.id}</p>
             <p><strong>Order Date:</strong> ${new Date().toLocaleDateString()}</p>
+          </div>
+
+          <div style="background: #e7f5ff; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #bee3ff;">
+            <h3 style="margin-top: 0;">Ship To:</h3>
+            <p>${formatAddress(shippingAddress)}</p>
           </div>
 
           <div style="background: #eef6ff; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #cfe2ff;">

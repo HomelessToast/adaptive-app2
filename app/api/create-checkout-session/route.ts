@@ -106,6 +106,12 @@ export async function POST(request: NextRequest) {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
+      shipping_address_collection: {
+        allowed_countries: ['US'],
+      },
+      phone_number_collection: {
+        enabled: true,
+      },
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/checkout/success?session_id={CHECKOUT_SESSION_ID}&supplement_facts=${encodeURIComponent(JSON.stringify(supplementFacts))}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/checkout`,
       metadata: metadata,
