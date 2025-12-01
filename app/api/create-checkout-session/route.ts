@@ -48,11 +48,16 @@ export async function POST(request: NextRequest) {
     // Calculate total cost
     const totalCost = cartItems.reduce((total: number, item: CartItem) => total + item.cost, 0);
 
-    // Validate discount code (case-insensitive)
-    const validCodes = new Set(['TRAVIS', 'HYRUM', 'MASON', 'ZARA', 'DYLAN']);
+    // Validate discount code (case-insensitive) and determine percent
     const normalizedCode = typeof discountCode === 'string' ? discountCode.trim().toUpperCase() : '';
-    const isDiscountValid = validCodes.has(normalizedCode);
-    const discountMultiplier = isDiscountValid ? 0.9 : 1.0;
+    const tenPercentCodes = new Set(['TRAVIS', 'HYRUM', 'MASON', 'ZARA', 'DYLAN', 'KYLE', 'AMBROSE', 'FINN']);
+    const fortyPercentCodes = new Set(['ATCOST$40']);
+
+    const discountPercent = fortyPercentCodes.has(normalizedCode)
+      ? 40
+      : (tenPercentCodes.has(normalizedCode) ? 10 : 0);
+    const isDiscountValid = discountPercent > 0;
+    const discountMultiplier = (100 - discountPercent) / 100;
 
     // Create line items for Stripe
     const lineItems = cartItems.map((item: CartItem) => ({
@@ -77,7 +82,7 @@ export async function POST(request: NextRequest) {
       has_custom_ingredients: 'true',
       order_type: 'custom_blend',
       discount_code: isDiscountValid ? normalizedCode : '',
-      discount_percent: isDiscountValid ? '10' : '0'
+      discount_percent: isDiscountValid ? String(discountPercent) : '0'
     };
 
     // Create Stripe Checkout Session with complete supplement facts data in success URL

@@ -37,18 +37,27 @@ export default function CartPage() {
     return cartItems.reduce((total, item) => total + item.cost, 0);
   };
 
-  const isDiscountApplied = !!appliedCode;
-  const discountedTotal = isDiscountApplied ? +(getTotalCost() * 0.9).toFixed(2) : getTotalCost();
+  const getDiscountPercentForCode = (code: string | null) => {
+    if (!code) return 0;
+    const upper = code.toUpperCase();
+    if (upper === 'ATCOST$40') return 40;
+    const tenCodes = new Set(['TRAVIS','HYRUM','MASON','ZARA','DYLAN','KYLE','AMBROSE','FINN']);
+    return tenCodes.has(upper) ? 10 : 0;
+  };
+
+  const discountPercent = getDiscountPercentForCode(appliedCode);
+  const isDiscountApplied = discountPercent > 0;
+  const discountedTotal = isDiscountApplied ? +(getTotalCost() * (1 - discountPercent / 100)).toFixed(2) : getTotalCost();
 
   const handleApplyDiscount = () => {
     const code = discountCode.trim().toUpperCase();
-    const validCodes = new Set(['TRAVIS', 'HYRUM', 'MASON', 'ZARA', 'DYLAN']);
-    if (validCodes.has(code)) {
+    const percent = getDiscountPercentForCode(code);
+    if (percent > 0) {
       setAppliedCode(code);
       setDiscountError(null);
     } else {
       setAppliedCode(null);
-      setDiscountError('Invalid code. Try TRAVIS, HYRUM, MASON, ZARA, or DYLAN.');
+      setDiscountError('Invalid code.');
     }
   };
 
@@ -257,7 +266,7 @@ export default function CartPage() {
                   <span className="text-sm line-through text-gray-500">${getTotalCost().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-green-700">Discount (10%)</span>
+                  <span className="text-sm text-green-700">Discount ({discountPercent}%)</span>
                   <span className="text-sm text-green-700">- ${(getTotalCost() - discountedTotal).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
