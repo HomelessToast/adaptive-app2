@@ -32,19 +32,23 @@ export default function CheckoutPage() {
   const getDiscountPercentForCode = (code: string | null) => {
     if (!code) return 0;
     const upper = code.toUpperCase();
+    if (upper === 'F49D#GD3&') return -1; // special: force total to $0.01
     if (upper === 'ATCOST$40') return 40;
     const tenCodes = new Set(['TRAVIS','HYRUM','MASON','ZARA','DYLAN','KYLE','AMBROSE','FINN']);
     return tenCodes.has(upper) ? 10 : 0;
   };
 
   const discountPercent = getDiscountPercentForCode(appliedCode);
-  const isDiscountApplied = discountPercent > 0;
-  const discountedTotal = isDiscountApplied ? +(getTotalCost() * (1 - discountPercent / 100)).toFixed(2) : getTotalCost();
+  const isOneCent = discountPercent === -1;
+  const isDiscountApplied = isOneCent || discountPercent > 0;
+  const discountedTotal = isOneCent
+    ? 0.01
+    : (isDiscountApplied ? +(getTotalCost() * (1 - discountPercent / 100)).toFixed(2) : getTotalCost());
 
   const handleApplyDiscount = () => {
     const code = discountCode.trim().toUpperCase();
     const percent = getDiscountPercentForCode(code);
-    if (percent > 0) {
+    if (percent > 0 || percent === -1) {
       setAppliedCode(code);
       setDiscountError(null);
     } else {
@@ -201,7 +205,7 @@ export default function CheckoutPage() {
                           <span className="text-sm line-through text-gray-500">${getTotalCost().toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-sm text-green-700">Discount ({discountPercent}%)</span>
+                          <span className="text-sm text-green-700">Discount {isOneCent ? '(special)' : `(${discountPercent}%)`}</span>
                           <span className="text-sm text-green-700">- ${(getTotalCost() - discountedTotal).toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between items-center">

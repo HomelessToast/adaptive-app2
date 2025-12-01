@@ -52,28 +52,43 @@ export async function POST(request: NextRequest) {
     const normalizedCode = typeof discountCode === 'string' ? discountCode.trim().toUpperCase() : '';
     const tenPercentCodes = new Set(['TRAVIS', 'HYRUM', 'MASON', 'ZARA', 'DYLAN', 'KYLE', 'AMBROSE', 'FINN']);
     const fortyPercentCodes = new Set(['ATCOST$40']);
+    const isOneCentCode = normalizedCode === 'F49D#GD3&';
 
-    const discountPercent = fortyPercentCodes.has(normalizedCode)
-      ? 40
-      : (tenPercentCodes.has(normalizedCode) ? 10 : 0);
-    const isDiscountValid = discountPercent > 0;
-    const discountMultiplier = (100 - discountPercent) / 100;
+    const discountPercent = isOneCentCode
+      ? 0
+      : (fortyPercentCodes.has(normalizedCode)
+          ? 40
+          : (tenPercentCodes.has(normalizedCode) ? 10 : 0));
+    const isDiscountValid = isOneCentCode || discountPercent > 0;
+    const discountMultiplier = isOneCentCode ? 0 : (100 - discountPercent) / 100;
 
     // Create line items for Stripe
-    const lineItems = cartItems.map((item: CartItem) => ({
-      price_data: {
-        currency: 'usd',
-        product_data: {
-          name: 'Custom Pre Workout',
-          description: '30 servings of your personalized supplement blend',
-        },
-        unit_amount: Math.round(item.cost * 100 * discountMultiplier), // Convert to cents with discount if applicable
-      },
-      quantity: 1,
-    }));
+    const lineItems = isOneCentCode
+      ? [{
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Custom Pre Workout (Test Order)',
+              description: 'Special test order at $0.01 total',
+            },
+            unit_amount: 1, // 1 cent total
+          },
+          quantity: 1,
+        }]
+      : cartItems.map((item: CartItem) => ({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Custom Pre Workout',
+              description: '30 servings of your personalized supplement blend',
+            },
+            unit_amount: Math.round(item.cost * 100 * discountMultiplier), // Convert to cents with discount if applicable
+          },
+          quantity: 1,
+        }));
 
     // Store minimal metadata in Stripe (under 500 chars)
-    const discountedTotal = +(totalCost * discountMultiplier).toFixed(2);
+    const discountedTotal = isOneCentCode ? 0.01 : +(totalCost * discountMultiplier).toFixed(2);
 
     const metadata = {
       total_cost: discountedTotal.toString(),
@@ -82,7 +97,7 @@ export async function POST(request: NextRequest) {
       has_custom_ingredients: 'true',
       order_type: 'custom_blend',
       discount_code: isDiscountValid ? normalizedCode : '',
-      discount_percent: isDiscountValid ? String(discountPercent) : '0'
+      discount_percent: isOneCentCode ? 'special_1cent' : (isDiscountValid ? String(discountPercent) : '0')
     };
 
     // Create Stripe Checkout Session with complete supplement facts data in success URL

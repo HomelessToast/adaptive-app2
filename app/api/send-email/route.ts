@@ -16,6 +16,9 @@ export async function POST(request: NextRequest) {
 
     const discountCodeUsed = metadata?.discount_code || '';
     const discountPercent = metadata?.discount_percent || '0';
+    const discountPercentDisplay = isNaN(Number(discountPercent))
+      ? 'Special (1¢ test)'
+      : `${discountPercent}%`;
     const totalBeforeDiscount = metadata?.total_cost_before_discount || '';
 
     // Format supplement facts for manufacturing email
@@ -149,7 +152,7 @@ export async function POST(request: NextRequest) {
           <div style="background: #eef6ff; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #cfe2ff;">
             <h3 style="color: #084298; margin-top: 0;">Discount Information</h3>
             <p><strong>Discount Code Used:</strong> ${discountCodeUsed || 'None'}</p>
-            <p><strong>Discount Percent:</strong> ${discountCodeUsed ? discountPercent + '%' : '0%'}</p>
+            <p><strong>Discount Percent:</strong> ${discountCodeUsed ? discountPercentDisplay : '0%'}</p>
             ${totalBeforeDiscount ? `<p><strong>Subtotal Before Discount:</strong> $${Number(totalBeforeDiscount).toFixed(2)}</p>` : ''}
           </div>
 
