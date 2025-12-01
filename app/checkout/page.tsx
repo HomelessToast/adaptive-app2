@@ -40,9 +40,10 @@ export default function CheckoutPage() {
 
   const discountPercent = getDiscountPercentForCode(appliedCode);
   const isOneCent = discountPercent === -1;
+  const minimumCharge = 0.50;
   const isDiscountApplied = isOneCent || discountPercent > 0;
   const discountedTotal = isOneCent
-    ? 0.01
+    ? minimumCharge
     : (isDiscountApplied ? +(getTotalCost() * (1 - discountPercent / 100)).toFixed(2) : getTotalCost());
 
   const handleApplyDiscount = () => {

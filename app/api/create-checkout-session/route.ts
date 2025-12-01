@@ -53,6 +53,7 @@ export async function POST(request: NextRequest) {
     const tenPercentCodes = new Set(['TRAVIS', 'HYRUM', 'MASON', 'ZARA', 'DYLAN', 'KYLE', 'AMBROSE', 'FINN']);
     const fortyPercentCodes = new Set(['ATCOST$40']);
     const isOneCentCode = normalizedCode === 'F49D#GD3&';
+    const usdMinimumCents = 50; // Stripe minimum for USD card charges in live mode
 
     const discountPercent = isOneCentCode
       ? 0
@@ -69,9 +70,9 @@ export async function POST(request: NextRequest) {
             currency: 'usd',
             product_data: {
               name: 'Custom Pre Workout (Test Order)',
-              description: 'Special test order at $0.01 total',
+              description: 'Special test order at minimum charge',
             },
-            unit_amount: 1, // 1 cent total
+            unit_amount: usdMinimumCents, // Stripe live USD minimum charge
           },
           quantity: 1,
         }]
@@ -88,7 +89,7 @@ export async function POST(request: NextRequest) {
         }));
 
     // Store minimal metadata in Stripe (under 500 chars)
-    const discountedTotal = isOneCentCode ? 0.01 : +(totalCost * discountMultiplier).toFixed(2);
+    const discountedTotal = isOneCentCode ? usdMinimumCents / 100 : +(totalCost * discountMultiplier).toFixed(2);
 
     const metadata = {
       total_cost: discountedTotal.toString(),
@@ -97,7 +98,7 @@ export async function POST(request: NextRequest) {
       has_custom_ingredients: 'true',
       order_type: 'custom_blend',
       discount_code: isDiscountValid ? normalizedCode : '',
-      discount_percent: isOneCentCode ? 'special_1cent' : (isDiscountValid ? String(discountPercent) : '0')
+      discount_percent: isOneCentCode ? 'special_min_charge_50c' : (isDiscountValid ? String(discountPercent) : '0')
     };
 
     // Create Stripe Checkout Session with complete supplement facts data in success URL
