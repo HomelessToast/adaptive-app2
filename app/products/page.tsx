@@ -134,7 +134,7 @@ export default function ProductsPage() {
               />
             </div>
             <h3 className="font-bold text-base md:text-lg mb-2">Fast Twitch Mix</h3>
-            <p className="text-gray-600 text-xs md:text-sm mb-3">Designed for athletes looking for maximum power output</p>
+            <p className="text-gray-600 text-xs md:text-sm mb-3 min-h-[3rem]">Designed for athletes looking for maximum power output</p>
             <div className="w-full mb-3">
               <label className="block text-xs text-gray-600 mb-1">Flavor</label>
               <select
@@ -166,7 +166,7 @@ export default function ProductsPage() {
               />
             </div>
             <h3 className="font-bold text-base md:text-lg mb-2">Hybrid Mix</h3>
-            <p className="text-gray-600 text-xs md:text-sm mb-3">A middle blend between power and endurance.</p>
+            <p className="text-gray-600 text-xs md:text-sm mb-3 min-h-[3rem]">A middle blend between power and endurance.</p>
             <div className="w-full mb-3">
               <label className="block text-xs text-gray-600 mb-1">Flavor</label>
               <select
@@ -198,7 +198,7 @@ export default function ProductsPage() {
               />
             </div>
             <h3 className="font-bold text-base md:text-lg mb-2">Endurance Blend</h3>
-            <p className="text-gray-600 text-xs md:text-sm mb-3">Stay locked in for the entire game.</p>
+            <p className="text-gray-600 text-xs md:text-sm mb-3 min-h-[3rem]">Stay locked in for the entire game.</p>
             <div className="w-full mb-3">
               <label className="block text-xs text-gray-600 mb-1">Flavor</label>
               <select
