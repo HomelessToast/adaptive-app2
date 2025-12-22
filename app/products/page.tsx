@@ -128,8 +128,8 @@ export default function ProductsPage() {
         <h2 className="text-lg md:text-xl text-gray-600 mb-8 md:mb-10 text-center">Try one of our premade sport blends, made by the pros</h2>
         {/* Sport Blend Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-7xl mx-auto">
-          <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 flex flex-col items-center text-center">
-            <div className="relative w-32 h-40 md:w-40 md:h-48 mb-4">
+          <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 flex flex-col items-center text-center h-full">
+            <div className="relative w-48 h-56 md:w-56 md:h-64 mb-4">
               <Image
                 src="/ChatGPT Image Dec 22, 2025 at 11_13_00 AM.png"
                 alt="Fast Twitch Blend"
@@ -140,15 +140,16 @@ export default function ProductsPage() {
             <h3 className="font-bold text-base md:text-lg mb-2">Fast Twitch Mix</h3>
             <p className="text-gray-600 text-xs md:text-sm mb-3">Designed for athletes looking for maximum power output</p>
             <div className="text-xl md:text-2xl font-bold text-black mb-4">$49.99</div>
+            <div className="flex-grow"></div>
             <button
               onClick={addFastTwitchBlendToCart}
-              className="bg-black text-white px-6 py-2 rounded-full text-sm md:text-base font-semibold hover:bg-gray-800 transition w-full"
+              className="bg-black text-white px-6 py-2 rounded-full text-sm md:text-base font-semibold hover:bg-gray-800 transition w-full mt-auto"
             >
               Add to Cart
             </button>
           </div>
-          <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 flex flex-col items-center text-center">
-            <div className="relative w-32 h-40 md:w-40 md:h-48 mb-4">
+          <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 flex flex-col items-center text-center h-full">
+            <div className="relative w-48 h-56 md:w-56 md:h-64 mb-4">
               <Image
                 src="/ChatGPT Image Dec 22, 2025 at 11_17_20 AM.png"
                 alt="Hybrid Blend"
@@ -159,15 +160,16 @@ export default function ProductsPage() {
             <h3 className="font-bold text-base md:text-lg mb-2">Hybrid Mix</h3>
             <p className="text-gray-600 text-xs md:text-sm mb-3">A middle blend between power and endurance.</p>
             <div className="text-xl md:text-2xl font-bold text-black mb-4">$49.99</div>
+            <div className="flex-grow"></div>
             <button
               onClick={addHybridBlendToCart}
-              className="bg-black text-white px-6 py-2 rounded-full text-sm md:text-base font-semibold hover:bg-gray-800 transition w-full"
+              className="bg-black text-white px-6 py-2 rounded-full text-sm md:text-base font-semibold hover:bg-gray-800 transition w-full mt-auto"
             >
               Add to Cart
             </button>
           </div>
-          <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 flex flex-col items-center text-center">
-            <div className="relative w-32 h-40 md:w-40 md:h-48 mb-4">
+          <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 flex flex-col items-center text-center h-full">
+            <div className="relative w-48 h-56 md:w-56 md:h-64 mb-4">
               <Image
                 src="/ChatGPT Image Dec 22, 2025 at 11_19_29 AM.png"
                 alt="Endurance Blend"
@@ -178,9 +180,10 @@ export default function ProductsPage() {
             <h3 className="font-bold text-base md:text-lg mb-2">Endurance Blend</h3>
             <p className="text-gray-600 text-xs md:text-sm mb-3">Stay locked in for the entire game.</p>
             <div className="text-xl md:text-2xl font-bold text-black mb-4">$49.99</div>
+            <div className="flex-grow"></div>
             <button
               onClick={addEnduranceBlendToCart}
-              className="bg-black text-white px-6 py-2 rounded-full text-sm md:text-base font-semibold hover:bg-gray-800 transition w-full"
+              className="bg-black text-white px-6 py-2 rounded-full text-sm md:text-base font-semibold hover:bg-gray-800 transition w-full mt-auto"
             >
               Add to Cart
             </button>
