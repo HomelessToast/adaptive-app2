@@ -12,7 +12,7 @@ type Ingredient = {
 };
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState<{ingredients: Ingredient[], cost: number, flavor?: string}[]>([]);
+  const [cartItems, setCartItems] = useState<{ingredients: Ingredient[], cost: number, flavor?: string, productName?: string}[]>([]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [discountCode, setDiscountCode] = useState('');
@@ -35,6 +35,11 @@ export default function CartPage() {
 
   const getTotalCost = () => {
     return cartItems.reduce((total, item) => total + item.cost, 0);
+  };
+
+  const hasPremixedBlend = () => {
+    const premixedBlends = ["Fast Twitch Blend", "Hybrid Blend", "Endurance Blend"];
+    return cartItems.some(item => item.productName && premixedBlends.includes(item.productName));
   };
 
   const getDiscountPercentForCode = (code: string | null) => {
@@ -227,35 +232,37 @@ export default function CartPage() {
             ))}
           </div>
 
-          {/* Cost Breakdown */}
-          <div className="border border-gray-200 rounded-lg p-6 shadow-sm mb-6">
-            <h3 className="text-lg font-semibold mb-4">Cost Breakdown</h3>
-            <div className="space-y-3">
-              {cartItems.map((item, index) => {
-                const breakdown = getCostBreakdown(item.ingredients);
-                return (
-                  <div key={index} className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>Premium Ingredients</span>
-                      <span className="font-semibold">${breakdown.ingredientCost.toFixed(2)}</span>
+          {/* Cost Breakdown - Only show for custom blends, not premixed */}
+          {!hasPremixedBlend() && (
+            <div className="border border-gray-200 rounded-lg p-6 shadow-sm mb-6">
+              <h3 className="text-lg font-semibold mb-4">Cost Breakdown</h3>
+              <div className="space-y-3">
+                {cartItems.map((item, index) => {
+                  const breakdown = getCostBreakdown(item.ingredients);
+                  return (
+                    <div key={index} className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Premium Ingredients</span>
+                        <span className="font-semibold">${breakdown.ingredientCost.toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span>Custom Manufacturing</span>
+                        <span className="font-semibold">${breakdown.customManufacturing.toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span>Quality Testing</span>
+                        <span className="font-semibold">${breakdown.qualityTesting.toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span>Packaging & Shipping</span>
+                        <span className="font-semibold">${breakdown.packagingShipping.toFixed(2)}</span>
+                      </div>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Custom Manufacturing</span>
-                      <span className="font-semibold">${breakdown.customManufacturing.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Quality Testing</span>
-                      <span className="font-semibold">${breakdown.qualityTesting.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Packaging & Shipping</span>
-                      <span className="font-semibold">${breakdown.packagingShipping.toFixed(2)}</span>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Total and Checkout */}
           <div className="border-t border-gray-200 pt-6">
