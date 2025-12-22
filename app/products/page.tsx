@@ -202,7 +202,7 @@ export default function ProductsPage() {
         {/* Sport Blend Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-7xl mx-auto">
           <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 flex flex-col items-center text-center h-full">
-            <div className="relative w-60 h-72 md:w-72 md:h-80 mb-4">
+            <div className={`relative mb-4 ${fastTwitchShowLabel ? 'w-60 h-72 md:w-72 md:h-80' : 'w-72 h-[22rem] md:w-96 md:h-[28rem]'}`}>
               <Image
                 src={fastTwitchShowLabel ? "/Fast Twitch Label.png" : "/ChatGPT Image Dec 22, 2025 at 11_13_00 AM.png"}
                 alt={fastTwitchShowLabel ? "Fast Twitch Label" : "Fast Twitch Blend"}
@@ -249,7 +249,7 @@ export default function ProductsPage() {
             </button>
           </div>
           <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 flex flex-col items-center text-center h-full">
-            <div className="relative w-60 h-72 md:w-72 md:h-80 mb-4">
+            <div className={`relative mb-4 ${hybridShowLabel ? 'w-60 h-72 md:w-72 md:h-80' : 'w-72 h-[22rem] md:w-96 md:h-[28rem]'}`}>
               <Image
                 src={hybridShowLabel ? "/Hybrid Label.png" : "/ChatGPT Image Dec 22, 2025 at 11_17_20 AM.png"}
                 alt={hybridShowLabel ? "Hybrid Label" : "Hybrid Blend"}
@@ -296,7 +296,7 @@ export default function ProductsPage() {
             </button>
           </div>
           <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 flex flex-col items-center text-center h-full">
-            <div className="relative w-60 h-72 md:w-72 md:h-80 mb-4">
+            <div className={`relative mb-4 ${enduranceShowLabel ? 'w-60 h-72 md:w-72 md:h-80' : 'w-72 h-[22rem] md:w-96 md:h-[28rem]'}`}>
               <Image
                 src={enduranceShowLabel ? "/Endurance Blend.png" : "/ChatGPT Image Dec 22, 2025 at 11_19_29 AM.png"}
                 alt={enduranceShowLabel ? "Endurance Blend Label" : "Endurance Blend"}
