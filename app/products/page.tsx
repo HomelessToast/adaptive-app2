@@ -14,8 +14,8 @@ export default function ProductsPage() {
   
   const flavorOptions = ["Sour Blue Raz", "Green Apple", "Fruit Punch Slam", "Pina Colada Breeze"];
 
-  // Shared ingredient structure for all blends
-  const getBlendIngredients = () => [
+  // Fast Twitch Blend specific ingredients
+  const getFastTwitchBlendIngredients = () => [
     { name: "Creatine Monohydrate", amount: 5000, unit: "mg" },
     { name: "Beta Alanine", amount: 4000, unit: "mg" },
     { name: "Caffeine Anhydrous", amount: 350, unit: "mg" },
@@ -51,9 +51,83 @@ export default function ProductsPage() {
     },
   ];
 
-  const addToCart = (productName: string, flavor: string) => {
+  // Hybrid Blend specific ingredients
+  const getHybridBlendIngredients = () => [
+    { name: "Creatine Monohydrate", amount: 5000, unit: "mg" },
+    { name: "Beta Alanine", amount: 4000, unit: "mg" },
+    { name: "Caffeine Anhydrous", amount: 275, unit: "mg" },
+    { name: "L Citrulline Malate", amount: 5500, unit: "mg" },
+    { name: "Theobromine", amount: 200, unit: "mg" },
+    { name: "Betaine Anhydrous", amount: 1500, unit: "mg" },
+    {
+      name: "Electrolytes",
+      subIngredients: [
+        { name: "Sodium Chloride", amount: 550, unit: "mg" },
+        { name: "Magnesium Malate", amount: 150, unit: "mg" },
+        { name: "Potassium Chloride", amount: 225, unit: "mg" },
+        { name: "Calcium citrate", amount: 50, unit: "mg" },
+      ],
+    },
+    {
+      name: "Nootropics",
+      subIngredients: [
+        { name: "L Tyrosine", amount: 1000, unit: "mg" },
+        { name: "L theanine", amount: 175, unit: "mg" },
+        { name: "Alpha GPC", amount: 450, unit: "mg" },
+        { name: "Taurine", amount: 1000, unit: "mg" },
+      ],
+    },
+    {
+      name: "Vitamins & Minerals",
+      subIngredients: [
+        { name: "B6", amount: 5, unit: "mg" },
+        { name: "B12", amount: 0.5, unit: "mg" },
+        { name: "B5", amount: 5, unit: "mg" },
+        { name: "B2", amount: 3, unit: "mg" },
+      ],
+    },
+  ];
+
+  // Endurance Blend specific ingredients
+  const getEnduranceBlendIngredients = () => [
+    { name: "Creatine Monohydrate", amount: 5000, unit: "mg" },
+    { name: "Beta Alanine", amount: 4000, unit: "mg" },
+    { name: "Caffeine Anhydrous", amount: 200, unit: "mg" },
+    { name: "L Citrulline Malate", amount: 6000, unit: "mg" },
+    { name: "Theobromine", amount: 200, unit: "mg" },
+    { name: "Betaine Anhydrous", amount: 2000, unit: "mg" },
+    {
+      name: "Electrolytes",
+      subIngredients: [
+        { name: "Sodium Chloride", amount: 800, unit: "mg" },
+        { name: "Magnesium Malate", amount: 200, unit: "mg" },
+        { name: "Potassium Chloride", amount: 300, unit: "mg" },
+        { name: "Calcium citrate", amount: 50, unit: "mg" },
+      ],
+    },
+    {
+      name: "Nootropics",
+      subIngredients: [
+        { name: "L Tyrosine", amount: 1000, unit: "mg" },
+        { name: "L theanine", amount: 200, unit: "mg" },
+        { name: "Alpha GPC", amount: 300, unit: "mg" },
+        { name: "Taurine", amount: 1000, unit: "mg" },
+      ],
+    },
+    {
+      name: "Vitamins & Minerals",
+      subIngredients: [
+        { name: "B6", amount: 5, unit: "mg" },
+        { name: "B12", amount: 0.5, unit: "mg" },
+        { name: "B5", amount: 5, unit: "mg" },
+        { name: "B2", amount: 3, unit: "mg" },
+      ],
+    },
+  ];
+
+  const addToCart = (productName: string, flavor: string, ingredients: any[]) => {
     const cartItem = {
-      ingredients: getBlendIngredients(),
+      ingredients: ingredients,
       cost: 59.99,
       flavor: flavor,
       productName: productName
@@ -73,9 +147,9 @@ export default function ProductsPage() {
     router.push('/cart');
   };
 
-  const addEnduranceBlendToCart = () => addToCart("Endurance Blend", enduranceFlavor);
-  const addHybridBlendToCart = () => addToCart("Hybrid Blend", hybridFlavor);
-  const addFastTwitchBlendToCart = () => addToCart("Fast Twitch Blend", fastTwitchFlavor);
+  const addEnduranceBlendToCart = () => addToCart("Endurance Blend", enduranceFlavor, getEnduranceBlendIngredients());
+  const addHybridBlendToCart = () => addToCart("Hybrid Blend", hybridFlavor, getHybridBlendIngredients());
+  const addFastTwitchBlendToCart = () => addToCart("Fast Twitch Blend", fastTwitchFlavor, getFastTwitchBlendIngredients());
 
   return (
     <>
