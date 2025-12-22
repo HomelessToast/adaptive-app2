@@ -13,10 +13,10 @@
     "@stripe/stripe-js": "^7.8.0",
     "@types/nodemailer": "^6.4.17",
     "@types/sqlite3": "^3.1.11",
-    "next": "15.3.3",
+    "next": "^15.5.7",
     "nodemailer": "^7.0.5",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "sqlite3": "^5.1.7",
     "stripe": "^18.4.0"
   },
@@ -27,7 +27,7 @@
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
-    "eslint-config-next": "15.3.3",
+    "eslint-config-next": "15.5.7",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.0",
     "typescript": "^5"
