@@ -165,8 +165,8 @@ export default function Home() {
       <section className="flex flex-col md:flex-row items-center justify-start mt-12 md:mt-20 px-4 md:px-6 gap-8 md:gap-12">
         <div className="w-full md:w-1/2 flex justify-center md:justify-start">
           <img
-            src="/Bottles%20Picture.png"
-            alt="ADAPTIV Powder Bottles"
+            src="/Stacked PRe.png"
+            alt="ADAPTIV Stacked Products"
             className="w-full max-w-[900px] object-contain"
           />
         </div>
