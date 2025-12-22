@@ -52,40 +52,18 @@ export default function ProductsPage() {
         <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">Know what sport you&apos;re looking for?</h1>
         <h2 className="text-lg md:text-xl text-gray-600 mb-8 md:mb-10 text-center">Try one of our premade sport blends, made by the pros</h2>
         {/* Sport Blend Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto">
-          {/* Row 1 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-7xl mx-auto">
           <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 h-48 md:h-64 flex flex-col justify-center items-center text-center">
-            <h3 className="font-bold text-base md:text-lg mb-2">Bodybuilding Mix</h3>
-            <p className="text-gray-600 text-xs md:text-sm">Maximum pump and performance.</p>
+            <h3 className="font-bold text-base md:text-lg mb-2">Fast Twitch Mix</h3>
+            <p className="text-gray-600 text-xs md:text-sm">Designed for athletes looking for maximum power output</p>
           </div>
           <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 h-48 md:h-64 flex flex-col justify-center items-center text-center">
-            <h3 className="font-bold text-base md:text-lg mb-2">Powerlifting Mix</h3>
-            <p className="text-gray-600 text-xs md:text-sm">Elite focus and intensity.</p>
+            <h3 className="font-bold text-base md:text-lg mb-2">Hybrid Mix</h3>
+            <p className="text-gray-600 text-xs md:text-sm">A middle blend between power and endurance.</p>
           </div>
           <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 h-48 md:h-64 flex flex-col justify-center items-center text-center">
-            <h3 className="font-bold text-base md:text-lg mb-2">Gym Bro Mix</h3>
-            <p className="text-gray-600 text-xs md:text-sm">Maximize pump and intensity for every workout (excluding leg day)</p>
-          </div>
-          <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 h-48 md:h-64 flex flex-col justify-center items-center text-center">
-            <h3 className="font-bold text-base md:text-lg mb-2">Endurance Mix</h3>
-            <p className="text-gray-600 text-xs md:text-sm">High in electrolytes with an endurance focus.</p>
-          </div>
-          {/* Row 2 */}
-          <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 h-48 md:h-64 flex flex-col justify-center items-center text-center">
-            <h3 className="font-bold text-base md:text-lg mb-2">Dunker Mix</h3>
-            <p className="text-gray-600 text-xs md:text-sm">High dose vertical power supplements.</p>
-          </div>
-          <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 h-48 md:h-64 flex flex-col justify-center items-center text-center">
-            <h3 className="font-bold text-base md:text-lg mb-2">Soccer Mix</h3>
-            <p className="text-gray-600 text-xs md:text-sm">A mix of endurance, speed and power.</p>
-          </div>
-          <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 h-48 md:h-64 flex flex-col justify-center items-center text-center">
-            <h3 className="font-bold text-base md:text-lg mb-2">Yoga Mix</h3>
-            <p className="text-gray-600 text-xs md:text-sm">Light focus, clean electrolytes, and energy.</p>
-          </div>
-          <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 h-48 md:h-64 flex flex-col justify-center items-center text-center">
-            <h3 className="font-bold text-base md:text-lg mb-2">HIIT Mix</h3>
-            <p className="text-gray-600 text-xs md:text-sm">A moderate mix of power, endurance, and energy.</p>
+            <h3 className="font-bold text-base md:text-lg mb-2">Endurance Blend</h3>
+            <p className="text-gray-600 text-xs md:text-sm">Stay locked in for the entire game.</p>
           </div>
         </div>
         <p className="text-center text-gray-500 mt-6 md:mt-8 text-xs md:text-sm">Yes, you can always change any aspect of the formula.</p>
