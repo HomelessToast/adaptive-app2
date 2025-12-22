@@ -11,6 +11,9 @@ export default function ProductsPage() {
   const [fastTwitchFlavor, setFastTwitchFlavor] = useState("Sour Blue Raz");
   const [hybridFlavor, setHybridFlavor] = useState("Sour Blue Raz");
   const [enduranceFlavor, setEnduranceFlavor] = useState("Sour Blue Raz");
+  const [fastTwitchShowLabel, setFastTwitchShowLabel] = useState(false);
+  const [hybridShowLabel, setHybridShowLabel] = useState(false);
+  const [enduranceShowLabel, setEnduranceShowLabel] = useState(false);
   
   const flavorOptions = ["Sour Blue Raz", "Green Apple", "Fruit Punch Slam", "Pina Colada Breeze"];
 
@@ -201,11 +204,26 @@ export default function ProductsPage() {
           <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 flex flex-col items-center text-center h-full">
             <div className="relative w-60 h-72 md:w-72 md:h-80 mb-4">
               <Image
-                src="/ChatGPT Image Dec 22, 2025 at 11_13_00 AM.png"
-                alt="Fast Twitch Blend"
+                src={fastTwitchShowLabel ? "/Fast Twitch Label.png" : "/ChatGPT Image Dec 22, 2025 at 11_13_00 AM.png"}
+                alt={fastTwitchShowLabel ? "Fast Twitch Label" : "Fast Twitch Blend"}
                 fill
                 className="object-contain"
               />
+              <button
+                onClick={() => setFastTwitchShowLabel(!fastTwitchShowLabel)}
+                className={`absolute top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white p-2 rounded-full transition-all ${fastTwitchShowLabel ? 'left-2' : 'right-2'}`}
+                aria-label={fastTwitchShowLabel ? "Show product image" : "Show label"}
+              >
+                {fastTwitchShowLabel ? (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                )}
+              </button>
             </div>
             <h3 className="font-bold text-base md:text-lg mb-2">Fast Twitch Mix</h3>
             <p className="text-gray-600 text-xs md:text-sm mb-3 min-h-[3rem]">Designed for athletes looking for maximum power output</p>
@@ -233,11 +251,26 @@ export default function ProductsPage() {
           <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 flex flex-col items-center text-center h-full">
             <div className="relative w-60 h-72 md:w-72 md:h-80 mb-4">
               <Image
-                src="/ChatGPT Image Dec 22, 2025 at 11_17_20 AM.png"
-                alt="Hybrid Blend"
+                src={hybridShowLabel ? "/Hybrid Label.png" : "/ChatGPT Image Dec 22, 2025 at 11_17_20 AM.png"}
+                alt={hybridShowLabel ? "Hybrid Label" : "Hybrid Blend"}
                 fill
                 className="object-contain"
               />
+              <button
+                onClick={() => setHybridShowLabel(!hybridShowLabel)}
+                className={`absolute top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white p-2 rounded-full transition-all ${hybridShowLabel ? 'left-2' : 'right-2'}`}
+                aria-label={hybridShowLabel ? "Show product image" : "Show label"}
+              >
+                {hybridShowLabel ? (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                )}
+              </button>
             </div>
             <h3 className="font-bold text-base md:text-lg mb-2">Hybrid Mix</h3>
             <p className="text-gray-600 text-xs md:text-sm mb-3 min-h-[3rem]">A middle blend between power and endurance.</p>
@@ -265,11 +298,26 @@ export default function ProductsPage() {
           <div className="bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 border border-blue-100 hover:shadow-2xl transition-all duration-200 flex flex-col items-center text-center h-full">
             <div className="relative w-60 h-72 md:w-72 md:h-80 mb-4">
               <Image
-                src="/ChatGPT Image Dec 22, 2025 at 11_19_29 AM.png"
-                alt="Endurance Blend"
+                src={enduranceShowLabel ? "/Endurance Blend.png" : "/ChatGPT Image Dec 22, 2025 at 11_19_29 AM.png"}
+                alt={enduranceShowLabel ? "Endurance Blend Label" : "Endurance Blend"}
                 fill
                 className="object-contain"
               />
+              <button
+                onClick={() => setEnduranceShowLabel(!enduranceShowLabel)}
+                className={`absolute top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white p-2 rounded-full transition-all ${enduranceShowLabel ? 'left-2' : 'right-2'}`}
+                aria-label={enduranceShowLabel ? "Show product image" : "Show label"}
+              >
+                {enduranceShowLabel ? (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                )}
+              </button>
             </div>
             <h3 className="font-bold text-base md:text-lg mb-2">Endurance Blend</h3>
             <p className="text-gray-600 text-xs md:text-sm mb-3 min-h-[3rem]">Stay locked in for the entire game.</p>
