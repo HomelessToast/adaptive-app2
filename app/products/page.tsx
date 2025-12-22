@@ -9,14 +9,49 @@ export default function ProductsPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
 
-  const addEnduranceBlendToCart = () => {
-    const cartItem = {
-      ingredients: [
-        { name: "Endurance Blend", amount: 1, unit: "container" }
+  // Shared ingredient structure for all blends
+  const getBlendIngredients = () => [
+    { name: "Creatine Monohydrate", amount: 5000, unit: "mg" },
+    { name: "Beta Alanine", amount: 4000, unit: "mg" },
+    { name: "Caffeine Anhydrous", amount: 350, unit: "mg" },
+    { name: "L Citrulline Malate", amount: 5000, unit: "mg" },
+    { name: "Theobromine", amount: 200, unit: "mg" },
+    { name: "Betaine Anhydrous", amount: 1000, unit: "mg" },
+    {
+      name: "Electrolytes",
+      subIngredients: [
+        { name: "Sodium Chloride", amount: 300, unit: "mg" },
+        { name: "Magnesium Malate", amount: 100, unit: "mg" },
+        { name: "Potassium Chloride", amount: 150, unit: "mg" },
+        { name: "Calcium citrate", amount: 50, unit: "mg" },
       ],
-      cost: 49.99,
+    },
+    {
+      name: "Nootropics",
+      subIngredients: [
+        { name: "L Tyrosine", amount: 1000, unit: "mg" },
+        { name: "L theanine", amount: 150, unit: "mg" },
+        { name: "Alpha GPC", amount: 600, unit: "mg" },
+        { name: "Taurine", amount: 1000, unit: "mg" },
+      ],
+    },
+    {
+      name: "Vitamins & Minerals",
+      subIngredients: [
+        { name: "B6", amount: 5, unit: "mg" },
+        { name: "B12", amount: 0.5, unit: "mg" },
+        { name: "B5", amount: 5, unit: "mg" },
+        { name: "B2", amount: 3, unit: "mg" },
+      ],
+    },
+  ];
+
+  const addToCart = (productName: string) => {
+    const cartItem = {
+      ingredients: getBlendIngredients(),
+      cost: 59.99,
       flavor: "Unspecified",
-      productName: "Endurance Blend"
+      productName: productName
     };
     
     // Get existing cart or create new one
@@ -33,53 +68,9 @@ export default function ProductsPage() {
     router.push('/cart');
   };
 
-  const addHybridBlendToCart = () => {
-    const cartItem = {
-      ingredients: [
-        { name: "Hybrid Blend", amount: 1, unit: "container" }
-      ],
-      cost: 49.99,
-      flavor: "Unspecified",
-      productName: "Hybrid Blend"
-    };
-    
-    // Get existing cart or create new one
-    const existingCart = localStorage.getItem('adaptiv-cart');
-    const cartItems = existingCart ? JSON.parse(existingCart) : [];
-    
-    // Add new item
-    cartItems.push(cartItem);
-    
-    // Save to localStorage
-    localStorage.setItem('adaptiv-cart', JSON.stringify(cartItems));
-    
-    // Redirect to cart
-    router.push('/cart');
-  };
-
-  const addFastTwitchBlendToCart = () => {
-    const cartItem = {
-      ingredients: [
-        { name: "Fast Twitch Blend", amount: 1, unit: "container" }
-      ],
-      cost: 49.99,
-      flavor: "Unspecified",
-      productName: "Fast Twitch Blend"
-    };
-    
-    // Get existing cart or create new one
-    const existingCart = localStorage.getItem('adaptiv-cart');
-    const cartItems = existingCart ? JSON.parse(existingCart) : [];
-    
-    // Add new item
-    cartItems.push(cartItem);
-    
-    // Save to localStorage
-    localStorage.setItem('adaptiv-cart', JSON.stringify(cartItems));
-    
-    // Redirect to cart
-    router.push('/cart');
-  };
+  const addEnduranceBlendToCart = () => addToCart("Endurance Blend");
+  const addHybridBlendToCart = () => addToCart("Hybrid Blend");
+  const addFastTwitchBlendToCart = () => addToCart("Fast Twitch Blend");
 
   return (
     <>
@@ -139,7 +130,7 @@ export default function ProductsPage() {
             </div>
             <h3 className="font-bold text-base md:text-lg mb-2">Fast Twitch Mix</h3>
             <p className="text-gray-600 text-xs md:text-sm mb-3">Designed for athletes looking for maximum power output</p>
-            <div className="text-xl md:text-2xl font-bold text-black mb-4">$49.99</div>
+            <div className="text-xl md:text-2xl font-bold text-black mb-4">$59.99</div>
             <div className="flex-grow"></div>
             <button
               onClick={addFastTwitchBlendToCart}
@@ -159,7 +150,7 @@ export default function ProductsPage() {
             </div>
             <h3 className="font-bold text-base md:text-lg mb-2">Hybrid Mix</h3>
             <p className="text-gray-600 text-xs md:text-sm mb-3">A middle blend between power and endurance.</p>
-            <div className="text-xl md:text-2xl font-bold text-black mb-4">$49.99</div>
+            <div className="text-xl md:text-2xl font-bold text-black mb-4">$59.99</div>
             <div className="flex-grow"></div>
             <button
               onClick={addHybridBlendToCart}
@@ -179,7 +170,7 @@ export default function ProductsPage() {
             </div>
             <h3 className="font-bold text-base md:text-lg mb-2">Endurance Blend</h3>
             <p className="text-gray-600 text-xs md:text-sm mb-3">Stay locked in for the entire game.</p>
-            <div className="text-xl md:text-2xl font-bold text-black mb-4">$49.99</div>
+            <div className="text-xl md:text-2xl font-bold text-black mb-4">$59.99</div>
             <div className="flex-grow"></div>
             <button
               onClick={addEnduranceBlendToCart}
