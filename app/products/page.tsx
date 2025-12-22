@@ -8,6 +8,11 @@ import { useRouter } from "next/navigation";
 export default function ProductsPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+  const [fastTwitchFlavor, setFastTwitchFlavor] = useState("Sour Blue Raz");
+  const [hybridFlavor, setHybridFlavor] = useState("Sour Blue Raz");
+  const [enduranceFlavor, setEnduranceFlavor] = useState("Sour Blue Raz");
+  
+  const flavorOptions = ["Sour Blue Raz", "Green Apple", "Fruit Punch Slam", "Pina Colada Breeze"];
 
   // Shared ingredient structure for all blends
   const getBlendIngredients = () => [
@@ -46,11 +51,11 @@ export default function ProductsPage() {
     },
   ];
 
-  const addToCart = (productName: string) => {
+  const addToCart = (productName: string, flavor: string) => {
     const cartItem = {
       ingredients: getBlendIngredients(),
       cost: 59.99,
-      flavor: "Unspecified",
+      flavor: flavor,
       productName: productName
     };
     
@@ -68,9 +73,9 @@ export default function ProductsPage() {
     router.push('/cart');
   };
 
-  const addEnduranceBlendToCart = () => addToCart("Endurance Blend");
-  const addHybridBlendToCart = () => addToCart("Hybrid Blend");
-  const addFastTwitchBlendToCart = () => addToCart("Fast Twitch Blend");
+  const addEnduranceBlendToCart = () => addToCart("Endurance Blend", enduranceFlavor);
+  const addHybridBlendToCart = () => addToCart("Hybrid Blend", hybridFlavor);
+  const addFastTwitchBlendToCart = () => addToCart("Fast Twitch Blend", fastTwitchFlavor);
 
   return (
     <>
@@ -130,6 +135,18 @@ export default function ProductsPage() {
             </div>
             <h3 className="font-bold text-base md:text-lg mb-2">Fast Twitch Mix</h3>
             <p className="text-gray-600 text-xs md:text-sm mb-3">Designed for athletes looking for maximum power output</p>
+            <div className="w-full mb-3">
+              <label className="block text-xs text-gray-600 mb-1">Flavor</label>
+              <select
+                value={fastTwitchFlavor}
+                onChange={(e) => setFastTwitchFlavor(e.target.value)}
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-white text-black"
+              >
+                {flavorOptions.map((flavor) => (
+                  <option key={flavor} value={flavor}>{flavor}</option>
+                ))}
+              </select>
+            </div>
             <div className="text-xl md:text-2xl font-bold text-black mb-4">$59.99</div>
             <div className="flex-grow"></div>
             <button
@@ -150,6 +167,18 @@ export default function ProductsPage() {
             </div>
             <h3 className="font-bold text-base md:text-lg mb-2">Hybrid Mix</h3>
             <p className="text-gray-600 text-xs md:text-sm mb-3">A middle blend between power and endurance.</p>
+            <div className="w-full mb-3">
+              <label className="block text-xs text-gray-600 mb-1">Flavor</label>
+              <select
+                value={hybridFlavor}
+                onChange={(e) => setHybridFlavor(e.target.value)}
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-white text-black"
+              >
+                {flavorOptions.map((flavor) => (
+                  <option key={flavor} value={flavor}>{flavor}</option>
+                ))}
+              </select>
+            </div>
             <div className="text-xl md:text-2xl font-bold text-black mb-4">$59.99</div>
             <div className="flex-grow"></div>
             <button
@@ -170,6 +199,18 @@ export default function ProductsPage() {
             </div>
             <h3 className="font-bold text-base md:text-lg mb-2">Endurance Blend</h3>
             <p className="text-gray-600 text-xs md:text-sm mb-3">Stay locked in for the entire game.</p>
+            <div className="w-full mb-3">
+              <label className="block text-xs text-gray-600 mb-1">Flavor</label>
+              <select
+                value={enduranceFlavor}
+                onChange={(e) => setEnduranceFlavor(e.target.value)}
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-white text-black"
+              >
+                {flavorOptions.map((flavor) => (
+                  <option key={flavor} value={flavor}>{flavor}</option>
+                ))}
+              </select>
+            </div>
             <div className="text-xl md:text-2xl font-bold text-black mb-4">$59.99</div>
             <div className="flex-grow"></div>
             <button
