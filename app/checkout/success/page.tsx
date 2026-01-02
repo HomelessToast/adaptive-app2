@@ -12,6 +12,14 @@ function CheckoutSuccessContent() {
   useEffect(() => {
     // Clear cart after successful checkout
     localStorage.removeItem('adaptiv-cart');
+    
+    // Track Meta Pixel Purchase conversion
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Purchase', {
+        currency: 'USD',
+        value: 0.00 // You can update this if you want to pass the actual order value
+      });
+    }
   }, []);
 
   return (
