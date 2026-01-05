@@ -6,6 +6,11 @@ import Link from "next/link";
 
 export default function ContactPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' });
 
   return (
     <div className="min-h-screen bg-gray-50 text-black">
@@ -71,7 +76,39 @@ export default function ContactPage() {
           {/* Contact Form */}
           <div className="bg-white rounded-lg shadow-lg p-8 border">
             <h2 className="text-2xl font-semibold mb-6">Send us a message</h2>
-            <form className="space-y-6">
+            <form 
+              className="space-y-6"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setIsSubmitting(true);
+                setSubmitStatus({ type: null, message: '' });
+
+                try {
+                  const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, message }),
+                  });
+
+                  const data = await response.json();
+
+                  if (response.ok) {
+                    setSubmitStatus({ type: 'success', message: data.message || 'Your message has been sent successfully!' });
+                    setName('');
+                    setEmail('');
+                    setMessage('');
+                  } else {
+                    setSubmitStatus({ type: 'error', message: data.error || 'Failed to send message. Please try again.' });
+                  }
+                } catch (error) {
+                  setSubmitStatus({ type: 'error', message: 'Failed to send message. Please try again.' });
+                } finally {
+                  setIsSubmitting(false);
+                }
+              }}
+            >
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                   Your Name
@@ -80,6 +117,9 @@ export default function ContactPage() {
                   id="name"
                   type="text"
                   placeholder="Enter your full name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
                   className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                 />
               </div>
@@ -92,6 +132,9 @@ export default function ContactPage() {
                   id="email"
                   type="email"
                   placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                   className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                 />
               </div>
@@ -104,15 +147,29 @@ export default function ContactPage() {
                   id="message"
                   placeholder="Tell us what's on your mind..."
                   rows={5}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  required
                   className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                 />
               </div>
               
+              {submitStatus.type && (
+                <div className={`p-4 rounded-lg ${
+                  submitStatus.type === 'success' 
+                    ? 'bg-green-50 text-green-800 border border-green-200' 
+                    : 'bg-red-50 text-red-800 border border-red-200'
+                }`}>
+                  <p className="text-sm font-medium">{submitStatus.message}</p>
+                </div>
+              )}
+              
               <button
                 type="submit"
-                className="w-full bg-black text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-800"
+                disabled={isSubmitting}
+                className="w-full bg-black text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
               >
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>
