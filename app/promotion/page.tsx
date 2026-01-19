@@ -193,6 +193,44 @@ export default function PromotionPage() {
       )}
 
       <main className="min-h-screen bg-white text-black font-sans px-4 md:px-6 py-8 md:py-12">
+        {/* Trust Section */}
+        <div className="max-w-6xl mx-auto mb-8 md:mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            {/* Trust Factor 1: Clinical Doses */}
+            <div className="bg-white border-2 border-gray-200 rounded-xl p-6 md:p-8 text-center shadow-md hover:shadow-lg transition-all duration-200">
+              <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 flex items-center justify-center rounded-full bg-green-100">
+                <svg className="w-8 h-8 md:w-10 md:h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h4 className="font-bold text-lg md:text-xl mb-2">100% Full Clinical Doses</h4>
+              <p className="text-sm md:text-base text-gray-600">Every ingredient is dosed at clinically-proven effective levels for maximum performance</p>
+            </div>
+
+            {/* Trust Factor 2: Trusted by Athletes */}
+            <div className="bg-white border-2 border-gray-200 rounded-xl p-6 md:p-8 text-center shadow-md hover:shadow-lg transition-all duration-200">
+              <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 flex items-center justify-center rounded-full bg-blue-100">
+                <svg className="w-8 h-8 md:w-10 md:h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h4 className="font-bold text-lg md:text-xl mb-2">Trusted by 100+ Athletes</h4>
+              <p className="text-sm md:text-base text-gray-600">Elite athletes across sports trust ADAPTIV for their performance needs</p>
+            </div>
+
+            {/* Trust Factor 3: Third Party Tested */}
+            <div className="bg-white border-2 border-gray-200 rounded-xl p-6 md:p-8 text-center shadow-md hover:shadow-lg transition-all duration-200">
+              <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 flex items-center justify-center rounded-full bg-purple-100">
+                <svg className="w-8 h-8 md:w-10 md:h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h4 className="font-bold text-lg md:text-xl mb-2">Always Clean & Tested</h4>
+              <p className="text-sm md:text-base text-gray-600">Every batch is 3rd party tested to ensure purity and safety standards</p>
+            </div>
+          </div>
+        </div>
+
         {/* Featured Fast Twitch Blend - Prominently Displayed */}
         <div className="max-w-2xl mx-auto mb-8 md:mb-12">
           <div className="bg-white/70 backdrop-blur-md shadow-2xl rounded-2xl p-6 md:p-8 border-2 border-red-200 hover:shadow-3xl transition-all duration-200 flex flex-col items-center text-center relative overflow-hidden">
