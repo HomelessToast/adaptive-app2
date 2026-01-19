@@ -128,7 +128,7 @@ export default function PromotionPage() {
     },
   ];
 
-  const addToCart = (productName: string, flavor: string, ingredients: any[]) => {
+  const buyNow = (productName: string, flavor: string, ingredients: any[]) => {
     const cartItem = {
       ingredients: ingredients,
       cost: 54.99,
@@ -136,23 +136,19 @@ export default function PromotionPage() {
       productName: productName
     };
     
-    // Get existing cart or create new one
-    const existingCart = localStorage.getItem('adaptiv-cart');
-    const cartItems = existingCart ? JSON.parse(existingCart) : [];
-    
-    // Add new item
-    cartItems.push(cartItem);
+    // Clear existing cart and set only this item for direct checkout
+    const cartItems = [cartItem];
     
     // Save to localStorage
     localStorage.setItem('adaptiv-cart', JSON.stringify(cartItems));
     
-    // Redirect to cart
-    router.push('/cart');
+    // Redirect directly to checkout
+    router.push('/checkout');
   };
 
-  const addEnduranceBlendToCart = () => addToCart("Endurance Blend", enduranceFlavor, getEnduranceBlendIngredients());
-  const addHybridBlendToCart = () => addToCart("Hybrid Blend", hybridFlavor, getHybridBlendIngredients());
-  const addFastTwitchBlendToCart = () => addToCart("Fast Twitch Blend", fastTwitchFlavor, getFastTwitchBlendIngredients());
+  const buyEnduranceBlend = () => buyNow("Endurance Blend", enduranceFlavor, getEnduranceBlendIngredients());
+  const buyHybridBlend = () => buyNow("Hybrid Blend", hybridFlavor, getHybridBlendIngredients());
+  const buyFastTwitchBlend = () => buyNow("Fast Twitch Blend", fastTwitchFlavor, getFastTwitchBlendIngredients());
 
   return (
     <>
@@ -247,10 +243,10 @@ export default function PromotionPage() {
               <div className="text-3xl md:text-4xl font-bold text-red-600">$54.99</div>
             </div>
             <button
-              onClick={addFastTwitchBlendToCart}
+              onClick={buyFastTwitchBlend}
               className="bg-black text-white px-8 py-4 rounded-full text-lg md:text-xl font-semibold hover:bg-gray-800 transition w-full max-w-xs"
             >
-              Add to Cart
+              Buy Now
             </button>
           </div>
         </div>
@@ -301,10 +297,10 @@ export default function PromotionPage() {
               <div className="text-xl md:text-2xl font-bold text-red-600">$54.99</div>
             </div>
             <button
-              onClick={addHybridBlendToCart}
+              onClick={buyHybridBlend}
               className="bg-black text-white px-6 py-2 rounded-full text-sm md:text-base font-semibold hover:bg-gray-800 transition w-full"
             >
-              Add to Cart
+              Buy Now
             </button>
           </div>
 
@@ -352,10 +348,10 @@ export default function PromotionPage() {
               <div className="text-xl md:text-2xl font-bold text-red-600">$54.99</div>
             </div>
             <button
-              onClick={addEnduranceBlendToCart}
+              onClick={buyEnduranceBlend}
               className="bg-black text-white px-6 py-2 rounded-full text-sm md:text-base font-semibold hover:bg-gray-800 transition w-full"
             >
-              Add to Cart
+              Buy Now
             </button>
           </div>
         </div>
