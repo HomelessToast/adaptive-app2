@@ -131,7 +131,7 @@ export default function PromotionPage() {
   const buyNow = (productName: string, flavor: string, ingredients: any[]) => {
     const cartItem = {
       ingredients: ingredients,
-      cost: 54.99,
+      cost: 49.99,
       flavor: flavor,
       productName: productName
     };
@@ -249,7 +249,7 @@ export default function PromotionPage() {
                 Trusted by 100+ Athletes
               </span>
             </div>
-            <p className="text-gray-600 text-base md:text-lg mb-4 max-w-md">Designed for athletes looking for maximum power output</p>
+            <p className="text-gray-600 text-base md:text-lg mb-4 max-w-md">Explosive Energy & Focus - Built for Athletic Performance</p>
             <div className="w-full max-w-xs mb-4">
               <label className="block text-sm text-gray-600 mb-2">Flavor</label>
               <select
@@ -263,8 +263,7 @@ export default function PromotionPage() {
               </select>
             </div>
             <div className="flex flex-col items-center mb-6">
-              <div className="text-xl md:text-2xl text-gray-400 line-through">$64.99</div>
-              <div className="text-3xl md:text-4xl font-bold text-red-600">$54.99</div>
+              <div className="text-3xl md:text-4xl font-bold text-red-600">$49.99</div>
             </div>
             <button
               onClick={buyFastTwitchBlend}
@@ -317,8 +316,7 @@ export default function PromotionPage() {
               </select>
             </div>
             <div className="flex flex-col items-center mb-4">
-              <div className="text-lg md:text-xl text-gray-400 line-through">$64.99</div>
-              <div className="text-xl md:text-2xl font-bold text-red-600">$54.99</div>
+              <div className="text-xl md:text-2xl font-bold text-red-600">$49.99</div>
             </div>
             <button
               onClick={buyHybridBlend}
@@ -368,8 +366,7 @@ export default function PromotionPage() {
               </select>
             </div>
             <div className="flex flex-col items-center mb-4">
-              <div className="text-lg md:text-xl text-gray-400 line-through">$64.99</div>
-              <div className="text-xl md:text-2xl font-bold text-red-600">$54.99</div>
+              <div className="text-xl md:text-2xl font-bold text-red-600">$49.99</div>
             </div>
             <button
               onClick={buyEnduranceBlend}
