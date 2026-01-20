@@ -16,37 +16,37 @@ type Ingredient = {
 export default function StartFromScratchPage() {
   const [selectedFlavor, setSelectedFlavor] = useState<string>("Blue Raz");
   const [ingredients, setIngredients] = useState<Ingredient[]>([
-    { name: "Creatine Monohydrate", amount: 5280, unit: "mg" },
-    { name: "Beta-Alanine", amount: 4224, unit: "mg" },
-    { name: "Caffeine Anhydrous", amount: 264, unit: "mg" },
-    { name: "L-Citrulline Malate", amount: 3960, unit: "mg" },
-    { name: "Theobromine", amount: 264, unit: "mg" },
-    { name: "Betaine Anhydrous", amount: 660, unit: "mg" },
+    { name: "Creatine Monohydrate", amount: 5300, unit: "mg" },
+    { name: "Beta-Alanine", amount: 4200, unit: "mg" },
+    { name: "Caffeine Anhydrous", amount: 300, unit: "mg" },
+    { name: "L-Citrulline Malate", amount: 4000, unit: "mg" },
+    { name: "Theobromine", amount: 300, unit: "mg" },
+    { name: "Betaine Anhydrous", amount: 700, unit: "mg" },
     {
       name: "Electrolytes",
       subIngredients: [
-        { name: "Sodium Chloride", amount: 211, unit: "mg" },
-        { name: "Magnesium Malate", amount: 16, unit: "mg" },
-        { name: "Potassium Chloride", amount: 53, unit: "mg" },
+        { name: "Sodium Chloride", amount: 210, unit: "mg" },
+        { name: "Magnesium Malate", amount: 20, unit: "mg" },
+        { name: "Potassium Chloride", amount: 50, unit: "mg" },
         { name: "Calcium Citrate", amount: 20, unit: "mg" },
       ],
     },
     {
       name: "Nootropics",
       subIngredients: [
-        { name: "L-Tyrosine", amount: 330, unit: "mg" },
-        { name: "L-Theanine", amount: 66, unit: "mg" },
-        { name: "Alpha-GPC", amount: 264, unit: "mg" },
-        { name: "Taurine", amount: 330, unit: "mg" },
+        { name: "L-Tyrosine", amount: 300, unit: "mg" },
+        { name: "L-Theanine", amount: 100, unit: "mg" },
+        { name: "Alpha-GPC", amount: 300, unit: "mg" },
+        { name: "Taurine", amount: 300, unit: "mg" },
       ],
     },
     {
       name: "Vitamins & Minerals",
       subIngredients: [
-        { name: "B6", amount: 13, unit: "mg" },
+        { name: "B6", amount: 10, unit: "mg" },
         { name: "B12", amount: 660, unit: "mcg" },
-        { name: "B5", amount: 13, unit: "mg" },
-        { name: "B2", amount: 3, unit: "mg" },
+        { name: "B5", amount: 10, unit: "mg" },
+        { name: "B2", amount: 10, unit: "mg" },
       ],
     },
   ]);
