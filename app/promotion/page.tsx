@@ -251,19 +251,20 @@ export default function PromotionPage() {
             </div>
             <p className="text-gray-600 text-base md:text-lg mb-4 max-w-md">Explosive Energy & Focus - Built for Athletic Performance</p>
             <div className="w-full max-w-xs mb-4">
-              <label className="block text-sm text-gray-600 mb-2">Flavor</label>
+              <label className="block text-xs text-gray-600 mb-1">Flavor</label>
               <select
                 value={fastTwitchFlavor}
                 onChange={(e) => setFastTwitchFlavor(e.target.value)}
-                className="w-full border border-gray-300 rounded px-4 py-3 text-base bg-white text-black"
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-white text-black"
               >
                 {flavorOptions.map((flavor) => (
-                  <option key={flavor} value={flavor}>{flavor}</option>
+                  <option key={flavor} value={flavor}>{flavor}{flavor === "Sour Blue Raz" ? " (Most Popular)" : ""}</option>
                 ))}
               </select>
             </div>
-            <div className="flex flex-col items-center mb-6">
+            <div className="flex flex-col items-center mb-4">
               <div className="text-3xl md:text-4xl font-bold text-red-600">$49.99</div>
+              <p className="text-sm text-gray-600 mt-2">Free shipping on orders $40+</p>
             </div>
             <button
               onClick={buyFastTwitchBlend}
