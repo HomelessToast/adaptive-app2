@@ -241,12 +241,6 @@ export default function PromotionPage() {
                   3rd-Party Tested
                 </span>
               </div>
-              {/* Trust Ribbon - Centered Above Product Name */}
-              <div className="absolute top-3 left-1/2 -translate-x-1/2">
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 shadow-sm text-xs font-medium text-gray-700">
-                  Trusted by 100+ Athletes
-                </span>
-              </div>
             </div>
             <h3 className="font-bold text-2xl md:text-3xl mb-2">Fast Twitch Blend</h3>
             <p className="text-gray-600 text-base md:text-lg mb-4 max-w-md">Explosive Energy & Focus - Built for Athletic Performance</p>
@@ -258,13 +252,13 @@ export default function PromotionPage() {
                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-white text-black"
               >
                 {flavorOptions.map((flavor) => (
-                  <option key={flavor} value={flavor}>{flavor}{flavor === "Sour Blue Raz" ? " (Most Popular)" : ""}</option>
+                  <option key={flavor} value={flavor}>{flavor}</option>
                 ))}
               </select>
             </div>
             <div className="flex flex-col items-center mb-4">
               <div className="text-3xl md:text-4xl font-bold text-red-600">$49.99</div>
-              <p className="text-sm text-gray-600 mt-2">Free shipping on orders $40+</p>
+              <p className="text-xs text-gray-600 mt-1 leading-tight">Free shipping on orders $40+</p>
             </div>
             <button
               onClick={buyFastTwitchBlend}
