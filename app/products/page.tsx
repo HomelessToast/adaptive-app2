@@ -131,7 +131,7 @@ export default function ProductsPage() {
   const addToCart = (productName: string, flavor: string, ingredients: any[]) => {
     const cartItem = {
       ingredients: ingredients,
-      cost: 54.99,
+      cost: 49.99,
       flavor: flavor,
       productName: productName
     };
@@ -240,8 +240,7 @@ export default function ProductsPage() {
               </select>
             </div>
             <div className="flex flex-col items-center mb-4">
-              <div className="text-lg md:text-xl text-gray-400 line-through">$64.99</div>
-              <div className="text-xl md:text-2xl font-bold text-red-600">$54.99</div>
+              <div className="text-xl md:text-2xl font-bold text-red-600">$49.99</div>
             </div>
             <div className="flex-grow"></div>
             <button
@@ -290,8 +289,7 @@ export default function ProductsPage() {
               </select>
             </div>
             <div className="flex flex-col items-center mb-4">
-              <div className="text-lg md:text-xl text-gray-400 line-through">$64.99</div>
-              <div className="text-xl md:text-2xl font-bold text-red-600">$54.99</div>
+              <div className="text-xl md:text-2xl font-bold text-red-600">$49.99</div>
             </div>
             <div className="flex-grow"></div>
             <button
@@ -340,8 +338,7 @@ export default function ProductsPage() {
               </select>
             </div>
             <div className="flex flex-col items-center mb-4">
-              <div className="text-lg md:text-xl text-gray-400 line-through">$64.99</div>
-              <div className="text-xl md:text-2xl font-bold text-red-600">$54.99</div>
+              <div className="text-xl md:text-2xl font-bold text-red-600">$49.99</div>
             </div>
             <div className="flex-grow"></div>
             <button
