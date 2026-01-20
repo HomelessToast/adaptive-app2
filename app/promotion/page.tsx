@@ -241,14 +241,14 @@ export default function PromotionPage() {
                   3rd-Party Tested
                 </span>
               </div>
+              {/* Trust Ribbon - Centered Above Product Name */}
+              <div className="absolute top-3 left-1/2 -translate-x-1/2">
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 shadow-sm text-xs font-medium text-gray-700">
+                  Trusted by 100+ Athletes
+                </span>
+              </div>
             </div>
-            <h3 className="font-bold text-2xl md:text-3xl mb-2">Fast Twitch Mix</h3>
-            {/* Trust Ribbon */}
-            <div className="mb-3">
-              <span className="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 border border-gray-200 text-xs font-medium text-gray-600">
-                Trusted by 100+ Athletes
-              </span>
-            </div>
+            <h3 className="font-bold text-2xl md:text-3xl mb-2">Fast Twitch Blend</h3>
             <p className="text-gray-600 text-base md:text-lg mb-4 max-w-md">Explosive Energy & Focus - Built for Athletic Performance</p>
             <div className="w-full max-w-xs mb-4">
               <label className="block text-xs text-gray-600 mb-1">Flavor</label>
