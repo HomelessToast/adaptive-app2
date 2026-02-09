@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     const normalizedCode = typeof discountCode === 'string' ? discountCode.trim().toUpperCase() : '';
     const tenPercentCodes = new Set(['TRAVIS', 'HYRUM', 'MASON', 'ZARA', 'DYLAN', 'KYLE', 'AMBROSE', 'FINN', 'NEWYEARS', 'NEWYEAR', 'LOGAN', 'TIKTOK', 'JAY', 'ISAAC', 'REYNOLDS', 'JOSH', 'DILLAN', 'LUIS']);
     const fortyPercentCodes = new Set(['ATCOST$40']);
-    const isOneCentCode = normalizedCode === 'F49D#GD3&';
+    const isOneCentCode = normalizedCode === 'F49D#GD3&' || normalizedCode === 'TEST50';
     const usdMinimumCents = 50; // Stripe minimum for USD card charges in live mode
 
     const discountPercent = isOneCentCode
