@@ -34,7 +34,7 @@ export default function CheckoutPage() {
     const upper = code.toUpperCase();
     if (upper === 'F49D#GD3&' || upper === 'TEST50') return -1; // special: force total to $0.50
     if (upper === 'ATCOST$40') return 40;
-    const tenCodes = new Set(['TRAVIS','HYRUM','MASON','ZARA','DYLAN','KYLE','AMBROSE','FINN','NEWYEARS','NEWYEAR','LOGAN','TIKTOK','JAY','ISAAC','REYNOLDS','JOSH','DILLAN','LUIS']);
+    const tenCodes = new Set(['TRAVIS','HYRUM','MASON','ZARA','DYLAN','KYLE','AMBROSE','FINN','NEWYEARS','NEWYEAR','LOGAN','TIKTOK','JAY','ISAAC','REYNOLDS','JOSH','DILLAN','LUIS','9999','SKYWALKER30','KEHMERR','JAKE']);
     return tenCodes.has(upper) ? 10 : 0;
   };
 
