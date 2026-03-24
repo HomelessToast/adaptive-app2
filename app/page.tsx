@@ -1,41 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ImageSlider from "../components/ImageSlider";
 
 export default function Home() {
-  const [currentWord, setCurrentWord] = useState("Sprinters");
-  const [index, setIndex] = useState(0);
-  const [finalWord, setFinalWord] = useState(false);
-  const [triggered, setTriggered] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
-
-  const rotatingWords = useMemo(() => ["Sprinters", "Swimmers", "Bodybuilders", "Cyclists", "Lifters", "You"], []);
-  const textRef = useRef<HTMLHeadingElement | null>(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setTriggered(true), 500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (!triggered || finalWord) return;
-    const interval = setInterval(() => {
-      if (index < rotatingWords.length - 1) {
-        setCurrentWord(rotatingWords[index]);
-        setIndex((prev) => prev + 1);
-      } else {
-        setCurrentWord("You");
-        setFinalWord(true);
-        clearInterval(interval);
-      }
-    }, 800);
-    return () => clearInterval(interval);
-  }, [triggered, index, finalWord, rotatingWords]);
 
   const addToCart = (productName: string, ingredients: { name: string; amount?: number; unit?: string; subIngredients?: { name: string; amount: number; unit: string }[] }[]) => {
     const cartItem = {
@@ -169,25 +142,12 @@ export default function Home() {
       <section className="bg-black text-white">
         <div className="flex flex-col md:flex-row items-center justify-center max-w-7xl mx-auto px-4 md:px-10 lg:px-16 py-10 md:py-14 gap-6 md:gap-8">
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center text-center md:text-left">
-            <div className="w-full">
-              <h1
-                ref={textRef}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-3 leading-[1.15] sm:leading-tight"
-                style={{ perspective: "1000px" }}
-              >
-                <span className="block">
-                  Create a completely custom pre-workout
-                </span>
-                <span className="mt-2 sm:mt-3 block">
-                  <span className="text-white/90">for </span>
-                  <span
-                    key={currentWord}
-                    className="font-bold animate-spinY inline-block text-blue-400"
-                    style={{ display: "inline-block" }}
-                  >
-                    {currentWord}
-                  </span>
-                  <span className="text-blue-400 font-bold">.</span>
+            <div className="w-full max-w-xl md:mx-0">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-3 leading-[1.15] sm:leading-tight">
+                <span className="block">Create a completely</span>
+                <span className="block mt-2 sm:mt-2.5">custom preworkout</span>
+                <span className="block mt-2 sm:mt-2.5">
+                  for <span className="font-bold text-blue-400">YOU</span>
                 </span>
               </h1>
               <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-6">
