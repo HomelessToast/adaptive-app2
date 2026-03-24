@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import ImageSlider from "../components/ImageSlider";
 
 export default function Home() {
-  const [currentWord, setCurrentWord] = useState("Athletes");
+  const [currentWord, setCurrentWord] = useState("Sprinters");
   const [index, setIndex] = useState(0);
   const [finalWord, setFinalWord] = useState(false);
   const [triggered, setTriggered] = useState(false);
@@ -172,25 +172,28 @@ export default function Home() {
             <div className="w-full">
               <h1
                 ref={textRef}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-3 leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-3 leading-[1.15] sm:leading-tight"
                 style={{ perspective: "1000px" }}
               >
-                Create completely custom
-                <br />
-                pre-workout for
-                <br />
-                <span
-                  key={currentWord}
-                  className="font-bold animate-spinY inline-block text-blue-400"
-                  style={{ display: "inline-block" }}
-                >
-                  {currentWord}.
+                <span className="block">
+                  Create a completely custom pre-workout
+                </span>
+                <span className="mt-2 sm:mt-3 block">
+                  <span className="text-white/90">for </span>
+                  <span
+                    key={currentWord}
+                    className="font-bold animate-spinY inline-block text-blue-400"
+                    style={{ display: "inline-block" }}
+                  >
+                    {currentWord}
+                  </span>
+                  <span className="text-blue-400 font-bold">.</span>
                 </span>
               </h1>
               <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-6">
                 ADAPTIV lets you create a completely custom blend for any sport, activity, or intensity.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+              <div className="flex flex-col sm:flex-row gap-5 sm:gap-6 md:gap-8 justify-center md:justify-start">
                 <Link
                   href="/quiz"
                   className="bg-blue-600 text-white px-8 py-4 rounded-full text-base md:text-lg font-semibold hover:bg-blue-700 transition inline-flex items-center justify-center"
