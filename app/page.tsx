@@ -155,7 +155,7 @@ export default function Home() {
 
       {/* Hero Section - Dark */}
       <section className="bg-black text-white">
-        <div className="flex flex-col md:flex-row items-center justify-between min-h-[70vh] px-4 md:px-12 lg:px-20 py-10 md:py-0">
+        <div className="flex flex-col md:flex-row items-center justify-center px-4 md:px-12 lg:px-20 py-10 md:py-14 gap-8 md:gap-12">
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center text-center md:text-left">
             <div className="max-w-xl w-full">
               <h1
@@ -194,7 +194,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-1/2 flex justify-center md:justify-end mt-8 md:mt-0">
+          <div className="w-full md:w-1/2 flex justify-center md:justify-end">
             <div className="w-full max-w-[480px] px-4 md:px-0">
               <ImageSlider />
             </div>
