@@ -202,6 +202,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Product Banner */}
+      <section className="w-full">
+        <img
+          src="/adaptiv-banner.png"
+          alt="ADAPTIV Flavor Collection"
+          className="w-full h-auto block"
+        />
+      </section>
+
       {/* Trust Bar */}
       <section className="bg-gray-100 py-4 border-y border-gray-200">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-center text-sm font-semibold text-gray-700 tracking-wide">
