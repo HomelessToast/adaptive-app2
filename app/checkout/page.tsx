@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { FREE_SHIPPING_THRESHOLD_USD, getFlatShippingUsd } from "@/lib/pricing";
 
 type Ingredient = {
   name: string;
@@ -45,6 +46,12 @@ export default function CheckoutPage() {
   const discountedTotal = isOneCent
     ? minimumCharge
     : (isDiscountApplied ? +(getTotalCost() * (1 - discountPercent / 100)).toFixed(2) : getTotalCost());
+
+  const shippingCharge = getFlatShippingUsd(discountedTotal, { isOneCentOrder: isOneCent });
+  const grandTotal = +(discountedTotal + shippingCharge).toFixed(2);
+  const amountToFreeShipping = isOneCent
+    ? 0
+    : Math.max(0, FREE_SHIPPING_THRESHOLD_USD - discountedTotal);
 
   const handleApplyDiscount = () => {
     const code = discountCode.trim().toUpperCase();
@@ -193,12 +200,29 @@ export default function CheckoutPage() {
                       <span className="font-semibold">${item.cost.toFixed(2)}</span>
                     </div>
                   ))}
-                  <div className="border-t border-gray-200 pt-4">
+                  <div className="border-t border-gray-200 pt-4 space-y-2">
                     {!isDiscountApplied ? (
-                      <div className="flex justify-between items-center">
-                        <span className="text-lg font-semibold">Total</span>
-                        <span className="text-xl font-bold">${getTotalCost().toFixed(2)}</span>
-                      </div>
+                      <>
+                        <div className="flex justify-between items-center">
+                          <span className="text-lg font-semibold">Subtotal</span>
+                          <span className="text-xl font-bold">${getTotalCost().toFixed(2)}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-gray-700">
+                          <span>Shipping (US)</span>
+                          <span className="font-semibold">
+                            {shippingCharge === 0 ? <span className="text-green-700">Free</span> : `$${shippingCharge.toFixed(2)}`}
+                          </span>
+                        </div>
+                        {amountToFreeShipping > 0 && (
+                          <p className="text-xs text-gray-500">
+                            Add ${amountToFreeShipping.toFixed(2)} more for free shipping (orders ${FREE_SHIPPING_THRESHOLD_USD}+).
+                          </p>
+                        )}
+                        <div className="flex justify-between items-center pt-2 border-t border-gray-200">
+                          <span className="text-lg font-semibold">Total</span>
+                          <span className="text-xl font-bold">${grandTotal.toFixed(2)}</span>
+                        </div>
+                      </>
                     ) : (
                       <div className="space-y-1">
                         <div className="flex justify-between items-center">
@@ -210,8 +234,23 @@ export default function CheckoutPage() {
                           <span className="text-sm text-green-700">- ${(getTotalCost() - discountedTotal).toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between items-center">
+                          <span className="text-sm font-medium text-gray-800">Subtotal after discount</span>
+                          <span className="text-sm font-semibold">${discountedTotal.toFixed(2)}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-gray-700">
+                          <span>Shipping (US)</span>
+                          <span className="font-semibold">
+                            {shippingCharge === 0 ? <span className="text-green-700">Free</span> : `$${shippingCharge.toFixed(2)}`}
+                          </span>
+                        </div>
+                        {amountToFreeShipping > 0 && !isOneCent && (
+                          <p className="text-xs text-gray-500">
+                            Add ${amountToFreeShipping.toFixed(2)} more for free shipping (orders ${FREE_SHIPPING_THRESHOLD_USD}+).
+                          </p>
+                        )}
+                        <div className="flex justify-between items-center pt-2 border-t border-gray-200">
                           <span className="text-lg font-semibold">Total</span>
-                          <span className="text-xl font-bold">${discountedTotal.toFixed(2)}</span>
+                          <span className="text-xl font-bold">${grandTotal.toFixed(2)}</span>
                         </div>
                       </div>
                     )}

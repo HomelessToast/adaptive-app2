@@ -34,6 +34,20 @@ export const BASE_COSTS = {
   PACKAGING_SHIPPING: 10.49,       // $10.49 for packaging & shipping
 };
 
+/** US checkout: subtotal (after product discounts) at or above this gets free outbound shipping */
+export const FREE_SHIPPING_THRESHOLD_USD = 75;
+export const FLAT_SHIPPING_RATE_USD = 7.99;
+
+/** Flat-rate shipping when order subtotal (after discounts) is under the free threshold */
+export function getFlatShippingUsd(
+  orderSubtotalAfterDiscountUsd: number,
+  options: { isOneCentOrder?: boolean } = {}
+): number {
+  if (options.isOneCentOrder) return 0;
+  if (orderSubtotalAfterDiscountUsd >= FREE_SHIPPING_THRESHOLD_USD) return 0;
+  return FLAT_SHIPPING_RATE_USD;
+}
+
 // Calculate ingredient cost based on amount and unit
 export function calculateIngredientCost(name: string, amount: number, unit: string): number {
   if (amount <= 0) return 0;

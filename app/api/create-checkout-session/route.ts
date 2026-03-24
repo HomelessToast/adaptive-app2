@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { FREE_SHIPPING_THRESHOLD_USD, getFlatShippingUsd } from '@/lib/pricing';
 
 // Only import Stripe if we have the required environment variables
 let stripe: any = null;
@@ -89,10 +90,29 @@ export async function POST(request: NextRequest) {
         }));
 
     // Store minimal metadata in Stripe (under 500 chars)
-    const discountedTotal = isOneCentCode ? usdMinimumCents / 100 : +(totalCost * discountMultiplier).toFixed(2);
+    const productSubtotalUsd = isOneCentCode ? usdMinimumCents / 100 : +(totalCost * discountMultiplier).toFixed(2);
+    const shippingUsd = getFlatShippingUsd(productSubtotalUsd, { isOneCentOrder: isOneCentCode });
+
+    if (!isOneCentCode && shippingUsd > 0) {
+      lineItems.push({
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: 'Standard shipping (US)',
+            description: `Flat rate when order subtotal is under $${FREE_SHIPPING_THRESHOLD_USD} (after discounts).`,
+          },
+          unit_amount: Math.round(shippingUsd * 100),
+        },
+        quantity: 1,
+      });
+    }
+
+    const orderTotalChargedUsd = +(productSubtotalUsd + shippingUsd).toFixed(2);
 
     const metadata = {
-      total_cost: discountedTotal.toString(),
+      product_subtotal: productSubtotalUsd.toString(),
+      shipping_amount: shippingUsd.toFixed(2),
+      total_cost: orderTotalChargedUsd.toString(),
       total_cost_before_discount: totalCost.toString(),
       item_count: cartItems.length.toString(),
       has_custom_ingredients: 'true',
