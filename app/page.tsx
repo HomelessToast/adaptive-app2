@@ -1,14 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ImageSlider from "../components/ImageSlider";
 
+const HERO_ROTATING_WORDS = ["Sprinters", "Swimmers", "Bodybuilders", "Cyclists", "Lifters"] as const;
+
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [heroWord, setHeroWord] = useState<string>(HERO_ROTATING_WORDS[0]);
   const router = useRouter();
+
+  useEffect(() => {
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+    let delay = 500;
+    for (let i = 1; i < HERO_ROTATING_WORDS.length; i++) {
+      const w = HERO_ROTATING_WORDS[i];
+      timeouts.push(
+        setTimeout(() => {
+          setHeroWord(w);
+        }, delay)
+      );
+      delay += 800;
+    }
+    timeouts.push(
+      setTimeout(() => {
+        setHeroWord("You");
+      }, delay)
+    );
+    return () => timeouts.forEach(clearTimeout);
+  }, []);
 
   const addToCart = (productName: string, ingredients: { name: string; amount?: number; unit?: string; subIngredients?: { name: string; amount: number; unit: string }[] }[]) => {
     const cartItem = {
@@ -142,12 +165,21 @@ export default function Home() {
       <section className="bg-black text-white">
         <div className="flex flex-col md:flex-row items-center justify-center max-w-7xl mx-auto px-4 md:px-10 lg:px-16 py-10 md:py-14 gap-6 md:gap-8">
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center text-center md:text-left">
-            <div className="w-full max-w-xl md:mx-0">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-3 leading-[1.15] sm:leading-tight">
-                <span className="block">Create a completely</span>
-                <span className="block mt-2 sm:mt-2.5">custom preworkout</span>
-                <span className="block mt-2 sm:mt-2.5">
-                  for <span className="font-bold text-blue-400">YOU</span>
+            <div className="w-full min-w-0 md:max-w-none">
+              <h1
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-3 leading-[1.15] sm:leading-tight"
+                style={{ perspective: "1000px" }}
+              >
+                <span className="block text-center md:text-left sm:whitespace-nowrap">Create a completely</span>
+                <span className="block mt-2 sm:mt-2.5 text-center md:text-left sm:whitespace-nowrap">custom preworkout</span>
+                <span className="mt-2 sm:mt-2.5 flex w-full flex-wrap justify-center items-baseline gap-x-1.5 sm:whitespace-nowrap">
+                  <span className="text-white/90">for</span>
+                  <span
+                    key={heroWord}
+                    className="font-bold text-blue-400 animate-spinY inline-block"
+                  >
+                    {heroWord === "You" ? "YOU" : `${heroWord}.`}
+                  </span>
                 </span>
               </h1>
               <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-6">
