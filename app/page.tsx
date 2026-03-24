@@ -155,9 +155,9 @@ export default function Home() {
 
       {/* Hero Section - Dark */}
       <section className="bg-black text-white">
-        <div className="flex flex-col md:flex-row items-center justify-center px-4 md:px-12 lg:px-20 py-10 md:py-14 gap-8 md:gap-12">
+        <div className="flex flex-col md:flex-row items-center justify-center max-w-7xl mx-auto px-4 md:px-10 lg:px-16 py-10 md:py-14 gap-6 md:gap-8">
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center text-center md:text-left">
-            <div className="max-w-xl w-full">
+            <div className="w-full">
               <h1
                 ref={textRef}
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-3 leading-tight"
@@ -220,13 +220,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trending Products Section - Dark */}
-      <section className="bg-gray-950 text-white py-12 md:py-16 px-4 md:px-6">
+      {/* Trending Products Section - Light */}
+      <section className="bg-white text-black py-12 md:py-16 px-4 md:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-sm font-semibold text-blue-400 tracking-widest uppercase mb-2">Popular Blends</h2>
+            <h2 className="text-sm font-semibold text-blue-600 tracking-widest uppercase mb-2">Popular Blends</h2>
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold">Trending Products</h3>
-            <p className="text-gray-400 mt-3 max-w-xl mx-auto text-sm md:text-base">
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto text-sm md:text-base">
               Not sure where to start? Try one of our premade sport blends, crafted by the pros.
             </p>
           </div>
@@ -234,7 +234,7 @@ export default function Home() {
             {trendingProducts.map((product) => (
               <div
                 key={product.name}
-                className="bg-gray-900 rounded-2xl p-6 border border-gray-800 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 flex flex-col items-center text-center group"
+                className="bg-gray-50 rounded-2xl p-6 border border-gray-200 hover:border-blue-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group"
               >
                 <div className="relative w-48 h-64 md:w-56 md:h-72 mb-6 group-hover:scale-105 transition-transform duration-300">
                   <Image
@@ -244,9 +244,9 @@ export default function Home() {
                     className="object-contain"
                   />
                 </div>
-                <h4 className="font-bold text-lg mb-1">{product.name}</h4>
-                <p className="text-gray-400 text-sm mb-4">{product.description}</p>
-                <div className="text-2xl font-bold text-blue-400 mb-5">{product.price}</div>
+                <h4 className="font-bold text-lg mb-1 text-gray-900">{product.name}</h4>
+                <p className="text-gray-500 text-sm mb-4">{product.description}</p>
+                <div className="text-2xl font-bold text-blue-600 mb-5">{product.price}</div>
                 <div className="flex flex-col gap-2 w-full mt-auto">
                   <button
                     onClick={() => addToCart(product.name, product.ingredients)}
@@ -256,7 +256,7 @@ export default function Home() {
                   </button>
                   <Link
                     href="/products"
-                    className="border border-gray-600 text-gray-300 px-6 py-3 rounded-full text-sm font-semibold hover:border-white hover:text-white transition w-full text-center"
+                    className="border border-gray-300 text-gray-600 px-6 py-3 rounded-full text-sm font-semibold hover:border-black hover:text-black transition w-full text-center"
                   >
                     View Details
                   </Link>
