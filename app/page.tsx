@@ -93,8 +93,8 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white text-black">
       {/* Announcement Banner */}
-      <div className="bg-blue-600 text-white text-center py-2.5 text-xs sm:text-sm font-medium tracking-wide">
-        FREE SHIPPING ON U.S. ORDERS $75+ &nbsp;|&nbsp; BUILD YOUR CUSTOM BLEND TODAY
+      <div className="bg-blue-600 text-white text-center py-1.5 text-[11px] sm:text-xs font-medium tracking-wide">
+        FREE SHIPPING ON U.S. ORDERS $75+
       </div>
 
       {/* Header */}
@@ -125,9 +125,20 @@ export default function Home() {
           </svg>
         </button>
 
-        <Link href="/cart" className="bg-black text-white px-3 md:px-4 py-2 rounded font-semibold text-xs md:text-sm hover:bg-gray-800 transition">
-          CART
-        </Link>
+        <div className="flex items-center gap-4 md:gap-5">
+          {/* Shipping / Track Order */}
+          <a href="#" className="text-gray-600 hover:text-black transition" aria-label="Shipping">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0H21M3.375 14.25h3.75L8.25 9h5.25l1.125 2.25H18a1.125 1.125 0 011.125 1.125v1.875m0 0H3.375" /></svg>
+          </a>
+          {/* Account */}
+          <a href="#" className="text-gray-600 hover:text-black transition" aria-label="Account">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+          </a>
+          {/* Cart */}
+          <Link href="/cart" className="text-gray-600 hover:text-black transition" aria-label="Cart">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" /></svg>
+          </Link>
+        </div>
       </header>
 
       {/* Mobile Navigation */}
@@ -144,12 +155,12 @@ export default function Home() {
 
       {/* Hero Section - Dark */}
       <section className="bg-black text-white">
-        <div className="flex flex-col md:flex-row items-center justify-between min-h-[85vh] px-4 md:px-12 lg:px-20">
-          <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center text-center md:text-left pt-12 md:pt-0">
+        <div className="flex flex-col md:flex-row items-center justify-between min-h-[70vh] px-4 md:px-12 lg:px-20 py-10 md:py-0">
+          <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center text-center md:text-left">
             <div className="max-w-xl w-full">
               <h1
                 ref={textRef}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-4 leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-3 leading-tight"
                 style={{ perspective: "1000px" }}
               >
                 Create completely custom
@@ -164,7 +175,7 @@ export default function Home() {
                   {currentWord}.
                 </span>
               </h1>
-              <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-8">
+              <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-6">
                 ADAPTIV lets you create a completely custom blend for any sport, activity, or intensity.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
@@ -183,8 +194,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-1/2 flex justify-center md:justify-end mt-10 md:mt-0">
-            <div className="w-full max-w-[520px] px-4 md:px-0">
+          <div className="w-full md:w-1/2 flex justify-center md:justify-end mt-8 md:mt-0">
+            <div className="w-full max-w-[480px] px-4 md:px-0">
               <ImageSlider />
             </div>
           </div>
@@ -192,7 +203,7 @@ export default function Home() {
       </section>
 
       {/* Trust Bar */}
-      <section className="bg-gray-100 py-6 border-y border-gray-200">
+      <section className="bg-gray-100 py-4 border-y border-gray-200">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-center text-sm font-semibold text-gray-700 tracking-wide">
           <div className="flex items-center gap-2">
             <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -210,8 +221,8 @@ export default function Home() {
       </section>
 
       {/* Product Story Section - Light */}
-      <section className="py-16 md:py-24 px-4 md:px-6">
-        <div className="flex flex-col md:flex-row items-center justify-center max-w-6xl mx-auto gap-10 md:gap-16">
+      <section className="py-12 md:py-16 px-4 md:px-6">
+        <div className="flex flex-col md:flex-row items-center justify-center max-w-6xl mx-auto gap-8 md:gap-12">
           <div className="w-full md:w-1/2 flex justify-center">
             <img
               src="/Stacked PRe.png"
@@ -245,9 +256,9 @@ export default function Home() {
       </section>
 
       {/* Trending Products Section - Dark */}
-      <section className="bg-gray-950 text-white py-16 md:py-24 px-4 md:px-6">
+      <section className="bg-gray-950 text-white py-12 md:py-16 px-4 md:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-sm font-semibold text-blue-400 tracking-widest uppercase mb-2">Popular Blends</h2>
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold">Trending Products</h3>
             <p className="text-gray-400 mt-3 max-w-xl mx-auto text-sm md:text-base">
@@ -292,14 +303,14 @@ export default function Home() {
       </section>
 
       {/* Benefits Section - Light */}
-      <section className="py-16 md:py-24 px-4 md:px-6 text-center bg-white">
+      <section className="py-12 md:py-16 px-4 md:px-6 text-center bg-white">
         <h2 className="text-sm sm:text-base font-semibold text-blue-600 tracking-widest uppercase mb-2">
           The only
         </h2>
         <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 px-2">
           completely custom pre-workout for athletes
         </h3>
-        <p className="text-gray-600 max-w-2xl mx-auto mb-10 md:mb-14 text-sm md:text-base px-4">
+        <p className="text-gray-600 max-w-2xl mx-auto mb-8 md:mb-10 text-sm md:text-base px-4">
           Your formula, your goals. Choose ingredients and exact dosages based on your sport,
           schedule, and experience level — built just for you.
         </p>
@@ -323,7 +334,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section - Dark */}
-      <section className="bg-gray-950 text-white py-16 md:py-20 px-4 md:px-6">
+      <section className="bg-gray-950 text-white py-12 md:py-16 px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
           {[
             { href: "/products", title: "Help me choose based off my sport", desc: "We'll guide you to the right ingredients based on your activity type.", icon: "M9 17v-2a4 4 0 014-4h2" },
@@ -348,9 +359,9 @@ export default function Home() {
       </section>
 
       {/* Footer - Dark */}
-      <footer className="bg-black text-gray-400 pt-16 pb-8 px-4 md:px-8">
+      <footer className="bg-black text-gray-400 pt-12 pb-6 px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-8">
             {/* Column 1 - Brand */}
             <div className="col-span-2 md:col-span-1">
               <Link href="/" className="inline-block mb-4">
