@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 
 const images = [
-  "/Basketball Athlete Picture.jpg",
-  "/Athlete 1.jpg",
-  "/Athlete 2.jpg", 
-  "/Athlete 3.jpg",
+  { src: "/flavors/blue-raz.png", alt: "Blue Raz flavor creative" },
+  { src: "/flavors/pina-colada.png", alt: "Pina Colada flavor creative" },
+  { src: "/flavors/fruit-punch.png", alt: "Fruit Punch flavor creative" },
+  { src: "/flavors/green-apple.png", alt: "Green Apple flavor creative" },
 ];
 
 export default function ImageSlider() {
@@ -22,11 +22,11 @@ export default function ImageSlider() {
 
   return (
     <div className="w-full max-w-[500px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[750px] relative overflow-hidden rounded-lg">
-      {images.map((src, index) => (
+      {images.map(({ src, alt }, index) => (
         <img
           key={index}
           src={src}
-          alt={`Athlete ${index + 1}`}
+          alt={alt}
           className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
             index === current ? "opacity-100" : "opacity-0"
           }`}
