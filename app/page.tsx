@@ -220,41 +220,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Product Story Section - Light */}
-      <section className="py-12 md:py-16 px-4 md:px-6">
-        <div className="flex flex-col md:flex-row items-center justify-center max-w-6xl mx-auto gap-8 md:gap-12">
-          <div className="w-full md:w-1/2 flex justify-center">
-            <img
-              src="/Stacked PRe.png"
-              alt="ADAPTIV Stacked Products"
-              className="w-full max-w-[500px] object-contain"
-            />
-          </div>
-          <div className="w-full md:w-1/2 flex items-center justify-center">
-            <div className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed max-w-md text-center md:text-left">
-              <p>
-                Every scoop of <span className="font-semibold text-black">ADAPTIV</span> is built for you. A male
-                bodybuilder has different needs than a female basketball player. So why would either take a
-                generic preworkout?
-              </p>
-              <p className="mt-6">
-                We let you pick every aspect of your custom blend, and our products are
-                dosed based on your weight, tolerance, and performance goals. No fillers, no fluff. Just clean,
-                research-backed ingredients tailored for <span className="font-semibold text-black">you</span>.
-              </p>
-              <div className="mt-8">
-                <Link
-                  href="/start-from-scratch"
-                  className="bg-blue-600 text-white px-8 py-4 rounded-full text-base font-semibold hover:bg-blue-700 transition inline-flex items-center justify-center"
-                >
-                  Build your custom formula NOW
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Trending Products Section - Dark */}
       <section className="bg-gray-950 text-white py-12 md:py-16 px-4 md:px-6">
         <div className="max-w-6xl mx-auto">
@@ -298,6 +263,41 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Product Story Section - Light */}
+      <section className="py-12 md:py-16 px-4 md:px-6 bg-white">
+        <div className="flex flex-col md:flex-row items-center justify-center max-w-6xl mx-auto gap-8 md:gap-12">
+          <div className="w-full md:w-1/2 flex justify-center">
+            <img
+              src="/Stacked PRe.png"
+              alt="ADAPTIV Stacked Products"
+              className="w-full max-w-[500px] object-contain"
+            />
+          </div>
+          <div className="w-full md:w-1/2 flex items-center justify-center">
+            <div className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed max-w-md text-center md:text-left">
+              <p>
+                Every scoop of <span className="font-semibold text-black">ADAPTIV</span> is built for you. A male
+                bodybuilder has different needs than a female basketball player. So why would either take a
+                generic preworkout?
+              </p>
+              <p className="mt-6">
+                We let you pick every aspect of your custom blend, and our products are
+                dosed based on your weight, tolerance, and performance goals. No fillers, no fluff. Just clean,
+                research-backed ingredients tailored for <span className="font-semibold text-black">you</span>.
+              </p>
+              <div className="mt-8">
+                <Link
+                  href="/start-from-scratch"
+                  className="bg-blue-600 text-white px-8 py-4 rounded-full text-base font-semibold hover:bg-blue-700 transition inline-flex items-center justify-center"
+                >
+                  Build your custom formula NOW
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
